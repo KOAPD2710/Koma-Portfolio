@@ -103,6 +103,7 @@
 
 .workSection {
   --height: 500px;
+  --paddingsvg: 50px 50px 45px 50px;
   text-align: left;
   z-index: calc(10 - var(--i));
 }
@@ -170,7 +171,7 @@
   aspect-ratio: 1/1;
   border-left: none;
   border-right: none;
-  padding: 40px;
+  padding: var(--paddingsvg);
   border-top: var(--stroke) solid var(--black);
   border-bottom: var(--stroke) solid var(--black);
 }
@@ -186,6 +187,18 @@
 }
 .section5 .square1, .section5 .square2, .section5 .square3, .section5 .square4 {
   border-bottom: none;
+}
+.section5 .square1 .square1 {
+  aspect-ratio: 1/1;
+  border-left: none;
+  border-right: none;
+  padding: var(--paddingsvg);
+  border-top: var(--stroke) solid var(--black);
+  border-bottom: var(--stroke) solid var(--black);
+  margin-top: 200px;
+}
+.section5 .square1 .square1 svg {
+  fill: var(--black);
 }
 .section5 .rightSquare {
   position: relative;
@@ -212,6 +225,26 @@
 .section6 .square1, .section6 .square2, .section6 .square3, .section6 .square4 {
   border-bottom: none;
 }
+.section6 .square2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.section6 .square2 .square1 {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  aspect-ratio: 1/1;
+  border-left: none;
+  border-right: none;
+  padding: var(--paddingsvg);
+  border-top: var(--stroke) solid var(--black);
+  border-bottom: var(--stroke) solid var(--black);
+}
+.section6 .square2 .square1 svg {
+  fill: var(--green) !important;
+}
 .section7 {
   position: relative;
   display: -webkit-box;
@@ -220,6 +253,26 @@
 }
 .section7 .square1, .section7 .square2, .section7 .square3, .section7 .square4 {
   padding-bottom: var(--height);
+}
+.section7 .square4 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.section7 .square4 .square1 {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  aspect-ratio: 1/1;
+  border-left: none;
+  border-right: none;
+  padding: var(--paddingsvg);
+  border-top: var(--stroke) solid var(--black);
+  border-bottom: var(--stroke) solid var(--black);
+}
+.section7 .square4 .square1 svg {
+  fill: var(--blue) !important;
 }
 .section7 .middleSquare {
   position: relative;

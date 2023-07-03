@@ -99,6 +99,7 @@
 
 .workSection {
 	--height: 500px;
+	--paddingsvg: 50px 50px 45px 50px;
 	text-align: left;
 	z-index: calc(10 - var(--i));
 
@@ -166,7 +167,7 @@
 			aspect-ratio: 1/1;
 			border-left: none;
 			border-right: none;
-			padding: 40px;
+			padding: var(--paddingsvg);
 			border-top: var(--stroke) solid var(--black);
 			border-bottom: var(--stroke) solid var(--black);
 
@@ -184,6 +185,21 @@
 	.square1, .square2, .square3, .square4{
 		border-bottom: none;
 		// padding-top: calc(0.8 * var(--height));
+	}
+	.square1 {
+		.square1 {
+			aspect-ratio: 1/1;
+			border-left: none;
+			border-right: none;
+			padding: var(--paddingsvg);
+			border-top: var(--stroke) solid var(--black);
+			border-bottom: var(--stroke) solid var(--black);
+			margin-top: 200px;
+
+			svg {
+				fill: var(--black);
+			}
+		}
 	}
 	.rightSquare {
 		position: relative;
@@ -208,6 +224,25 @@
 	.square1, .square2, .square3, .square4{
 		border-bottom: none;
 	}
+
+	.square2 {
+		display: flex;
+
+		.square1 {
+			align-self: flex-end;
+			flex-basis: calc(100% / 1);
+			aspect-ratio: 1/1;
+			border-left: none;
+			border-right: none;
+			padding: var(--paddingsvg);
+			border-top: var(--stroke) solid var(--black);
+			border-bottom: var(--stroke) solid var(--black);
+
+			svg {
+				fill: var(--green) !important;
+			}
+		}
+	}
 	.square3 {
 		.content {
 			// margin-top: calc(1.5*var(--height));
@@ -222,6 +257,24 @@
 
 	.square1, .square2, .square3, .square4{
 		padding-bottom: var(--height);
+	}
+	.square4 {
+		display: flex;
+
+		.square1 {
+			align-self: flex-end;
+			flex-basis: calc(100% / 1);
+			aspect-ratio: 1/1;
+			border-left: none;
+			border-right: none;
+			padding: var(--paddingsvg);
+			border-top: var(--stroke) solid var(--black);
+			border-bottom: var(--stroke) solid var(--black);
+
+			svg {
+				fill: var(--blue) !important;
+			}
+		}
 	}
 
 	.middleSquare {

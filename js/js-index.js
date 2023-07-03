@@ -70,6 +70,7 @@ function index() {
 		y: 200,
 		ease: 'none'
 	})
+	
 	scrollY = 500;
 	scrollEase = "none";
 	scrollScrub = 1;
