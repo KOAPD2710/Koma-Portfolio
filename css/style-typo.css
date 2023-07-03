@@ -1,0 +1,39 @@
+@font-face {
+  font-family: Fonttext;
+  src: url(../fonts/PPNeueMachina-InktrapRegular.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: Fonttext;
+  src: url(../fonts/PPNeueMachina-InktrapMedium.ttf);
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Fonttext;
+  src: url(../fonts/PPNeueMachina-InktrapUltrabold.ttf);
+  font-weight: bold;
+  font-style: normal;
+}
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 27px;
+}
+
+body {
+  font-family: FontText;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+}
+/*# sourceMappingURL=style-typo.css.map */
