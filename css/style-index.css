@@ -62,7 +62,7 @@
   translate: -var(--gap) 0;
 }
 .section3 .marquee-container .marquee-content svg {
-  height: 60px;
+  height: 72px;
   fill: var(--black);
 }
 .section3 .marquee-container .marquee-content .marquee-logo {
