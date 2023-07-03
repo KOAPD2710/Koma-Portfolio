@@ -53,16 +53,17 @@
 }
 .section3 .marquee-container .marquee-content {
   --gap: 100px;
+  --height: 72px;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: var(--gap);
-  padding: 0px var(--gap) 0px 0px;
-  translate: -var(--gap) 0;
+  padding-left: var(--gap);
+  translate: -var(--gap) 0px;
 }
 .section3 .marquee-container .marquee-content svg {
-  height: 72px;
+  height: var(--height);
   fill: var(--black);
 }
 .section3 .marquee-container .marquee-content .marquee-logo {
@@ -70,11 +71,14 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: var(--height);
+  height: var(--height);
 }
 .section3 .marquee-container .marquee-content .marquee-logo svg {
   position: absolute;
@@ -142,7 +146,7 @@
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  background-color: orange;
+  background-color: #5b5b5b;
   translate: 0 -50%;
 }
 .workSection .project.horizontal {

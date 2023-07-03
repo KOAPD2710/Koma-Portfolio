@@ -48,23 +48,26 @@
 
 		.marquee-content {
 			--gap: 100px;
+			--height: 72px;
 			position: relative;
 			display: flex;
 			gap: var(--gap);
-			padding: 0px var(--gap) 0px 0px;
-			translate: -var(--gap) 0;
+			// padding: 0px var(--gap) 0px 0px;
+			padding-left: var(--gap);
+			translate: -var(--gap) 0px;
 
 			svg {
-				height: 72px;
+				height: var(--height);
 				fill: var(--black);
 			}
 
 			.marquee-logo {
 				position: relative;
 				display: flex;
+				align-self: center;
 				justify-content: center;
-				width: 60px;
-				height: 60px;
+				width: var(--height);
+				height: var(--height);
 
 				svg {
 					position: absolute;
@@ -134,7 +137,7 @@
 		left: 0;
 		display: flex;
 		width: 100%;
-		background-color: orange;
+		background-color: #5b5b5b;
 		translate: 0 -50%;
 	}
 
