@@ -5,14 +5,17 @@ function lightDarkMode(){
 
 	const darkmode = gsap.timeline({paused:true});
 
-	const tl = gsap.timeline();
 
-	tl.to('html, body', {backgroundColor: '#222', duration:0.2});
-	tl.to("#ldmode svg", {fill: '#EDEDED', duration:0.2}, "<");
-	tl.to("svg", {fill: '#EDEDED', duration:0.2}, "<");
-	tl.to("h1, h2, h3, h, h5, p", {color: '#EDEDED', duration: .5}, "<");
-	tl.set("a", {color: '#EDEDED'}, "<");
-	tl.to("div, a", {borderColor: '#EDEDED', duration:0.2}, "<");
+	const whiteColor = '#EDEDED',
+		blackColor = '#222';
+
+	const tl = gsap.timeline();
+	tl.to('html, body', {backgroundColor: blackColor, duration:0.2});
+	tl.to("#ldmode svg", {fill: whiteColor, duration:0.2}, "<");
+	tl.to("svg", {fill: whiteColor, duration:0.2}, "<");
+	tl.to("h1, h2, h3, h, h5, p", {color: whiteColor, duration: .5}, "<");
+	tl.set("a", {color: whiteColor}, "<");
+	tl.to("div, a", {borderColor: whiteColor, duration:0.2}, "<");
 	// tl.to("#navigation .square .text p", {background: '-webkit-linear-gradient(#EDEDED 0%, #EDEDED 50%, #222 50%, #222 100%)', backgroundClip: 'text', duration:0.2}, "<");
 
 	darkmode.add(tl);
