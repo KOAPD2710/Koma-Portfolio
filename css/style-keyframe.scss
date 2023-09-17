@@ -1,0 +1,11 @@
+@keyframes svgAnimation {
+	0%, 100% {
+		translate: 0% 0%;
+	};
+	49% {
+		translate: 100% -100%;
+	};
+	49.1% {
+		translate: -100% 100%;
+	}
+}

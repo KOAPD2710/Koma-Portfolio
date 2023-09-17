@@ -1,0 +1,174 @@
+.expertField {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	overflow: hidden;
+	cursor: initial;
+
+	p {
+		font-weight: 700;
+		font-size: 	14vw;
+		line-height: 1.1;
+		margin: 0px;
+	}
+
+	.container {
+		--gap: 56px;
+
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		align-items: center;
+
+		.headTitle {
+			position: relative;
+			display: block;
+
+			.mainText {
+				color: var(--black);
+				text-transform: uppercase;
+				transition: all .1s ease-in-out;
+			}
+
+			.effectText {
+				position: absolute;
+				display: flex;
+				flex-direction: row;
+				text-transform: uppercase;
+				gap: var(--gap);
+				top: 0;
+
+
+				p {
+					color: var(--maincolor) !important;
+					// -webkit-text-stroke: 2px var(--maincolor);
+					transition: all .2s ease-out;
+				}
+			}
+			.leftsideText {
+				left:  calc(var(--gap)*-1);
+				translate: -100% 0;
+
+				p {
+					opacity: 0;
+					transform: translateX(calc(var(--gap)*1.2));
+				}
+			}
+			.rightsideText {
+				right: calc(var(--gap)*-1);
+				translate: 100% 0;
+
+				p {
+					opacity: 0;
+					transform: translateX(calc(var(--gap)*-1.2));
+				}
+			}
+		}
+
+		.skillInside {
+			position: relative;
+			width: 100%;
+			overflow: hidden;
+
+			.marquee-container {
+				position: relative;
+				display: flex;
+				justify-content: flex-start;
+				width: 100%;
+				overflow: hidden;
+				translate: 0px -100%;
+				transition: all .3s ease-out;
+
+				.marquee-content {
+					--size: 1.4vw;
+
+					position: relative;
+					display: flex;
+					align-items: center;
+					gap: var(--size);
+					padding-left: var(--size);
+					translate: -var(--size) 0px;
+
+					p {
+						font-size: var(--size);
+						font-weight: 600;
+						white-space: nowrap;
+						// background-color: royalblue;
+					}
+
+					svg {
+						height: calc(var(--size)/2);
+						fill: var(--maincolor) !important;
+					}
+				}
+			}
+		}
+	}
+
+	.container.hovering {
+
+		.headTitle {
+
+			.mainText {
+				color: transparent !important;
+				-webkit-text-stroke: 2.1px var(--maincolor) !important;
+			}
+			.effectText {
+				p {
+					transition: all .4s ease-out;
+				}
+			}
+			.leftsideText {
+				left:  calc(var(--gap)*-1);
+				translate: -100% 0;
+
+				p {
+					opacity: 1;
+					transform: translateX(0px);
+				}
+			}
+			.rightsideText {
+				right: calc(var(--gap)*-1);
+				translate: 100% 0;
+
+				p {
+					opacity: 1;
+					transform: translateX(0px);
+				}
+			}
+		}
+
+		.skillInside {
+			.marquee-container {
+				translate: 0px 0%;
+			}
+		}
+	}
+
+	.uiExpert {
+		--maincolor: var(--red);
+		.headTitle {
+			translate: 0px 0px;
+		}
+	}
+	.visualExpert {
+		--maincolor: var(--green);
+		.headTitle {
+			translate: -8% 0px;
+		}
+	}
+	.mediaExpert {
+		--maincolor: var(--blue);
+		.headTitle {
+			translate: 10% 0px;
+		}
+	}
+	.contentExpert {
+		--maincolor: var(--red);
+		.headTitle {
+			translate: 5% 0px;
+		}
+	}
+}

@@ -1,5 +1,5 @@
 const lenis = new Lenis({
-	duration: 1.5,
+	duration: 2.2,
 	easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
 	direction: "vertical",
 	gestureDirection: "vertical",
@@ -22,5 +22,11 @@ function raf(time){
 }
 requestAnimationFrame(raf);
 
+// document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// 	anchor.addEventListener('click', function (e) {
+// 		e.preventDefault();
+// 		lenis.scrollTo(this.getAttribute('href'))
+// 	});
+// })
 
 
