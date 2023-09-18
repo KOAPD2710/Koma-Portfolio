@@ -315,6 +315,8 @@ body {
 	display: block;
 	width: 100%;
 	z-index: 9999;
+	pointer-events: none;
+	// opacity: 0;
 
 	.naviSticky {
 		position: sticky;
@@ -324,6 +326,8 @@ body {
 		flex-direction: row;
 		height: 72px;
 		background-color: var(--fillColor);
+		pointer-events: auto;
+		
 		#logo, #naviLink {
 			border-top: var(--stroke) solid var(--strokeColor);
 		}
@@ -507,6 +511,10 @@ body {
 		align-items: center;
 		justify-content: center;
 		z-index: 20;
+
+		a {
+			color: var(--text);
+		}
 
 		.arrowContainer {
 			--ball: 150px;

@@ -247,6 +247,10 @@ function landingPage() {
 				height: '0%',
 				duration: .8,
 				ease: "power3.out",
+				stagger: {
+					each: .5,
+					amount: .5,
+				}
 			})
 		}
 	}, 6);

@@ -2,13 +2,13 @@
 @font-face{
 	font-family: Fonttext;
 	src: url(../fonts/PPNeueMachina-InktrapRegular.ttf);
-	font-weight: normal;
+	font-weight: 400;
 	font-style: normal;
 }
 @font-face{
 	font-family: Fonttext;
 	src: url(../fonts/PPNeueMachina-InktrapRegularItalic.ttf);
-	font-weight: normal;
+	font-weight: 400;
 	font-style: italic;
 }
 @font-face{
@@ -51,14 +51,14 @@
 .title-ts {
 	font-family: Fonttext;
 	font-size: 28px;
-	font-weight: bold;
+	font-weight: 500;
 	line-height: 1.5;
 	margin-top: 0;
 }
 .body-ts {
 	font-family: Fonttext;
 	font-size: 16px;
-	font-weight: normal;
+	font-weight: 400;
 	line-height: 1.5;
 	margin-top: 0;
 
@@ -78,6 +78,7 @@
 	letter-spacing: 1px;
 	line-height: 1.5;
 	margin-top: 0;
+	text-transform: uppercase;
 }
 .navi-ts {
 	font-family: Fonttext;

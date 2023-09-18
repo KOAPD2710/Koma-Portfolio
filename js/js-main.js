@@ -379,6 +379,10 @@ $(document).ready(function(e) {
 			height: '0%',
 			duration: 1.2,
 			ease: "power3.out",
+			stagger: {
+				each: .5,
+				amount: .5,
+			},
 			delay: .2,
 			onStart: function () {
 				$('#handlePageTransition').css('display', 'none');
@@ -390,7 +394,10 @@ $(document).ready(function(e) {
 			height: '100%',
 			duration: .8,
 			ease: "Power3.out",
-
+			stagger: {
+				each: .3,
+				amount: .5,
+			}
 		})
 	}
 	window.scrollTo(0, 0);
@@ -415,7 +422,7 @@ $(document).ready(function(e) {
 			setTimeout(() => {
 				// Redirect to the href value
 				window.location.href = href;
-			}, 1000);
+			}, 2000);
 		});
 	});
 })
