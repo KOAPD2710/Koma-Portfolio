@@ -115,16 +115,16 @@ class workSelectionThumbNew {
 		var workSelections = gsap.utils.toArray(selectionTarget);
 		workSelections.forEach(function(workSelection) {
 			$(workSelection).hover(function() {
-				$(this).toggleClass('hovering');
-				$('#workSelectionThumb').toggleClass('hovering');
+				$(this).addClass('hovering');
+				$('#workSelectionThumb').addClass('hovering');
 
 				var target = $(this).data('target');
 				$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 1);
 
 				animateFeDisplacementMap.beginElement();
 			}, function() {
-				$(this).toggleClass('hovering');
-				$('#workSelectionThumb').toggleClass('hovering');
+				$(this).removeClass('hovering');
+				$('#workSelectionThumb').removeClass('hovering');
 
 				var target = $(this).data('target');
 				$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 0);
