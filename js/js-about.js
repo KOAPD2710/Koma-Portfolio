@@ -2,18 +2,40 @@ width = $(window).innerWidth();
 height = $(window).innerHeight();
 naviHeight = $('#navigation').innerHeight();
 
-document.body.addEventListener('resize', function() {
-	width = $(window).innerWidth();
-	height = $(window).innerHeight();
-})
+function reSize() {
+
+	function adjuct() {
+
+		$('.section1 .square2 .thumbnail').css('height', ' ' + height-naviHeight-37*2 + 'px');
+		$('.section5 .marquee').css('height', ' ' + .95*height - $('.section5 .text1').innerHeight() - $('.section5 .text2').innerHeight() + 'px');
+
+		if (width/2 < (height-naviHeight-37*2)) {
+			$('.section1 .container .square2 .thumbnail img').css('height', '100%');
+			$('.section1 .container .square2 .thumbnail img').css('width', 'auto');
+		} else {
+			$('.section1 .container .square2 .thumbnail img').css('height', 'auto');
+			$('.section1 .container .square2 .thumbnail img').css('width', '100%');
+		}
+	}
+
+	window.addEventListener('resize', function() {
+		width = $(window).innerWidth();
+		height = $(window).innerHeight();
+
+		adjuct();	
+	})
+	adjuct();
+}
 
 function about() {
+	reSize();
+
 	$('.naviHeight').css('height', ' ' + naviHeight + 'px');
 
-	var expertField = ['.uiExpert', '.visualExpert', '.mediaExpert', '.contentExpert'];
-	expertField.forEach(function(targetSelector) {
-		new MarqueeAnimation(targetSelector, 180);
-	});
+	// var expertField = ['.uiExpert', '.visualExpert', '.mediaExpert', '.contentExpert'];
+	// expertField.forEach(function(targetSelector) {
+	// 	new MarqueeAnimation(targetSelector, 180);
+	// });
 }
 
 class MarqueeAnimation {
@@ -63,4 +85,5 @@ class MarqueeAnimation {
 
 window.addEventListener('load', function() {
 	about();
+
 })

@@ -46,127 +46,201 @@ function index() {
 		ease: indexEase
 	},0.3);
 
-
-	// ScrollTrigger.create({
-	// 	trigger: '.section3',
-	// 	start: `top ${naviHeight}`,
-	// 	pin: true, 
-	// 	pinSpacing: false,
-	// 	markers: true
-	// });
-	// $('section4-wrapper')
-}
-
-function workSelectionThumb() {
-	var target = $('.section4 #workSelectionThumb');
-	var thumb = $('.section4 .thumbMove');
-	var isFunctionRunning = false;
-	var debounceTimeout;
-
-	// var scroll = window.scrollY || window.pageYOffset;
-
-	function updateThumbPosition() {
-		if (!isFunctionRunning) {
-            return;
-        }
-		cursorX = event.pageX;
-		cursorY = event.pageY;
-		topTrigger = $('.section4').offset().top;
-		dis = cursorY - topTrigger;
-		gsap.to(thumb, {
-			x: cursorX*.8,
-			y: dis,
-			ease: 'Power1.easeInOut',
-			duration: .1,
-		})
-	}
-
-	function startFunction() {
-		isFunctionRunning = true;
-		$(document).on('mousemove', updateThumbPosition);
-	}
-	function stopFunction() {
-		isFunctionRunning = false;
-		$(document).off('mousemove', updateThumbPosition);
-
-	}
-
-	const filterSelected = document.getElementById('filterSelected'),
-	feTurbulence = filterSelected.querySelector("feTurbulence"),
-	animateFeTurbulence = feTurbulence.querySelector("animate"),
-	feDisplacementMap = filterSelected.querySelector("feDisplacementMap"),
-	animateFeDisplacementMap = feDisplacementMap.querySelector("animate");
-
-	$('.section4-wrapper').hover(function() {
-		startFunction();
-		animateFeDisplacementMap.beginElement();
-	}, function() {
-		stopFunction();
+	ScrollTrigger.create({
+		trigger: '.section4 .stickyContainer',
+		// start: `top ${naviHeight-1}`,
+		start: `top top`,
+		endTrigger: '.section4',
+		end: "bottom top",
+		pin: true, 
+		pinSpacing: false,
 	});
 
-	var workSelection = gsap.utils.toArray('.workSelection');
-	workSelection.forEach(function(workSelection) {
-
-		var workSectionInstance;
-		$(workSelection).hover(function() {
-			$(this).toggleClass('hovering');
-			$(this).removeClass('none');
-			$('#workSelectionThumb').toggleClass('hovering');
-
-			var target = $(this).data('target');
-			$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 1);
-
-			workSectionInstance = new selectedWorkSection(this);
-			animateFeDisplacementMap.beginElement();
-		}, function() {
-			$(this).toggleClass('hovering');
-			$('#workSelectionThumb').toggleClass('hovering');
-
-			var target = $(this).data('target');
-			$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 0);
-
-			workSectionInstance.stop();
-			workSectionInstance = null;
-		})
+	gsap.to('.section4 .circle svg', {
+		scrollTrigger: {
+			trigger: '.section4',
+			start: 'top bottom',
+		},
+		transformOrigin: 'center center',
+		rotate: 360,
+		ease: 'none',
+		repeat: -1,
+		duration: 15,
 	})
+	gsap.fromTo('.section4 .circle1', {
+		yPercent: 50,
+		// scale: 1,
+	}, {
+		scrollTrigger: {
+			trigger: '.section4',
+			start: 'top bottom',
+			end: 'bottom top',
+			scrub: 1,
+		},
+		yPercent: -10,
+		// scale: 1.1,
+	})
+	gsap.fromTo('.section4 .circle2', {
+		yPercent: -80,
+		// scale: 1,
+	}, {
+		scrollTrigger: {
+			trigger: '.section4',
+			start: 'top bottom',
+			end: 'bottom top',
+			scrub: 1,
+		},
+		yPercent: -30,
+		// scale: 1.1,
+	})
+
+	new workSelectionThumbNew('#workSelectionThumb', '.section6');
 }
+class workSelectionThumbNew {
+	constructor(target, wrapper) {
+		this.target = $(target);
+		this.wrapper = $(wrapper);
+		this.thumbnail = this.target.find('.thumbMove');
 
-class selectedWorkSection {
-	constructor(selector) {
-		this.container = $(selector);
-		this.target = this.container.find('.moveWhenHover');
-		this.pTop = this.container.offset().top;
-		this.pMidle = this.container.offset().top + this.container.innerHeight()/2;
-		this.pBtom = this.pTop + this.container.innerHeight();
-		this.cursorX = 0;
-		this.cursorY = 0;
-
-		$(window).on('mousemove', (event) => {
-			this.cursorY = event.pageY;
-
-			if ( this.pTop <= this.cursorY && this.cursorY <= this.pMidle ) {
-				this.container.addClass('up');
-				this.container.removeClass('down');
-				this.container.prev().addClass('down');
-				this.container.prev().removeClass('up');
-				this.container.next().addClass('up');
-				this.container.next().removeClass('down');
-				// console.log('up');
-			} else if (true) {
-				this.container.addClass('down');
-				this.container.removeClass('up');
-				this.container.next().addClass('up');
-				this.container.next().removeClass('down');
-				this.container.prev().addClass('down');
-				this.container.prev().removeClass('up');
-				// console.log('down');
-			}
-			// console.log(this.pTop, this.pMidle, this.pBtom, this.cursorY);
-		});
+		this.thumbnailTransition('.workSelection');
+		this.thumbnailMove(this.thumbnail);
 	}
+	thumbnailTransition(selectionTarget) {
+		const filterSelected = document.getElementById('filterSelected'),
+		feTurbulence = filterSelected.querySelector("feTurbulence"),
+		animateFeTurbulence = feTurbulence.querySelector("animate"),
+		feDisplacementMap = filterSelected.querySelector("feDisplacementMap"),
+		animateFeDisplacementMap = feDisplacementMap.querySelector("animate");
 
-	stop() {
-		$(window).off('mousemove');
+		var workSelections = gsap.utils.toArray(selectionTarget);
+		workSelections.forEach(function(workSelection) {
+			$(workSelection).hover(function() {
+				$(this).toggleClass('hovering');
+				$('#workSelectionThumb').toggleClass('hovering');
+
+				var target = $(this).data('target');
+				$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 1);
+
+				animateFeDisplacementMap.beginElement();
+			}, function() {
+				$(this).toggleClass('hovering');
+				$('#workSelectionThumb').toggleClass('hovering');
+
+				var target = $(this).data('target');
+				$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 0);
+			})
+		})
+	}
+	thumbnailMove(target) {
+		$('.section6').hover(() => {
+			var targetPos = {x:0, y:0},
+				halfWidth = $(window).innerWidth()/2;
+
+			window.addEventListener('mousemove', function(event) {
+				this.cursorX = halfWidth + ((event.pageX  - halfWidth)*.7);
+				this.cursorY = event.pageY - $('.section6').offset().top;
+
+				gsap.to(target, {
+					x: this.cursorX,
+					y: this.cursorY,
+					ease: 'expo.out',
+					duration: 2,
+				})
+			})
+		})
+	}
+}
+// function workSelectionThumb() {
+// 	var target = $('.section6 #workSelectionThumb');
+// 	var thumb = $('.section6 .thumbMove');
+// 	var isFunctionRunning = false;
+// 	var debounceTimeout;
+
+// 	// var scroll = window.scrollY || window.pageYOffset;
+
+// 	function updateThumbPosition() {
+// 		if (!isFunctionRunning) {
+// 			return;
+// 		}
+// 		cursorX = event.pageX;
+// 		cursorY = event.pageY;
+// 		topTrigger = $('.section6').offset().top;
+// 		dis = cursorY - topTrigger;
+// 		gsap.to(thumb, {
+// 			x: cursorX*.8,
+// 			y: dis,
+// 			ease: 'Power1.easeInOut',
+// 			duration: .1,
+// 		})
+// 	}
+
+// 	function startFunction() {
+// 		isFunctionRunning = true;
+// 		$(document).on('mousemove', updateThumbPosition);
+// 	}
+// 	function stopFunction() {
+// 		isFunctionRunning = false;
+// 		$(document).off('mousemove', updateThumbPosition);
+// 	}
+// 	$('.section6').hover(function() {
+// 		startFunction();
+// 		animateFeDisplacementMap.beginElement();
+// 	}, function() {
+// 		stopFunction();
+// 	});
+
+// 	const filterSelected = document.getElementById('filterSelected'),
+// 	feTurbulence = filterSelected.querySelector("feTurbulence"),
+// 	animateFeTurbulence = feTurbulence.querySelector("animate"),
+// 	feDisplacementMap = filterSelected.querySelector("feDisplacementMap"),
+// 	animateFeDisplacementMap = feDisplacementMap.querySelector("animate");
+
+// 	$('.section6').hover(function() {
+// 		startFunction();
+// 		animateFeDisplacementMap.beginElement();
+// 	}, function() {
+// 		stopFunction();
+// 	});
+
+// 	var workSelection = gsap.utils.toArray('.workSelection');
+// 	workSelection.forEach(function(workSelection) {
+
+// 		var workSectionInstance;
+// 		$(workSelection).hover(function() {
+// 			$(this).toggleClass('hovering');
+// 			$(this).removeClass('none');
+// 			$('#workSelectionThumb').toggleClass('hovering');
+
+// 			var target = $(this).data('target');
+// 			$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 1);
+
+// 			workSectionInstance = new selectedWorkSection(this);
+// 			animateFeDisplacementMap.beginElement();
+// 		}, function() {
+// 			$(this).toggleClass('hovering');
+// 			$('#workSelectionThumb').toggleClass('hovering');
+
+// 			var target = $(this).data('target');
+// 			$('#workSelectionThumb .visible img[data-target="' + target + '"]').css('opacity', 0);
+
+// 			workSectionInstance.stop();
+// 			workSectionInstance = null;
+// 		})
+// 	})
+// }
+class selectedWorkSectionNew {
+	constructor(panel) {
+		this.container = $(panel);
+		this.panel = this.container.find('.panel');
+
+		this.panel.each(function() {
+			$(this).hover(function() {
+				$(this).addClass('hovering')
+			}, function() {
+				$(this).removeClass('hovering')
+			})
+		})
+
 	}
 }
 function splitText() {
@@ -195,7 +269,6 @@ function splitText() {
 	// Replace the original paragraph's HTML with the new HTML
 	originalParagraph.html(newHtml);
 }
-
 function landingPage() {
 	const landPage = $('.landingPage');
 	const textlandPage = landPage.find('.textLandingPage');
@@ -255,7 +328,6 @@ function landingPage() {
 		}
 	}, 6);
 }
-
 function disableScroll() {
 	// Store the current scroll position
 	const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
@@ -304,9 +376,10 @@ function enableScroll() {
 }
 $(document).ready(function(e){
 	splitText();
-	landingPage();
+	// landingPage();
+	new selectedWorkSectionNew('.section6');
 })
 window.addEventListener('load', function() {
 	index();
-	// workSelectionThumb();
+	// workSelectionThumb()
 })

@@ -316,6 +316,7 @@ body {
 	width: 100%;
 	z-index: 9999;
 	pointer-events: none;
+	// background-color: rgba(244, 144, 144, .4);
 	// opacity: 0;
 
 	.naviSticky {
@@ -644,18 +645,54 @@ body {
 			position: relative;
 			display: flex;
 			flex-basis: calc(100% / 2);
-			padding: var(--padding2side);
 			align-items: flex-end;
 
 			.rightContainer {
 				--gapLink: 25px;
 
 				width: 100%;
+				height: 100%;
+
+				.circleContainer {
+					position: relative;
+					display: block;
+					height: 50%;
+					// background-color: royalblue;
+					border-bottom: var(--stroke) solid var(--strokeColor);
+					overflow: hidden;
+
+					svg {
+						position: absolute;
+						top: 0;
+						left: 50%;
+						translate: -50% 5%;
+						width: 70%;
+						fill: var(--text);
+
+						.border {
+							fill: none !important;
+							stroke: var(--text);
+							stroke-width: .5px;
+							stroke-linecap: round;
+						}
+						#redSmile {
+							fill: var(--red);
+						}
+					}
+				}
+
+				.textContainer {
+					height: 50%;
+					display: flex;
+					flex-direction: column;
+					justify-content: flex-end;
+				}
 				.infoText {
 					position: relative;
 					width: 100%;
 					text-transform: uppercase;
-					margin-bottom: 72px;
+					margin-bottom: 40px;
+					padding-left: var(--padding2side);
 					overflow: hidden;
 
 					.linkBox {
@@ -669,6 +706,8 @@ body {
 						a {
 							margin: var(--gapLink) 0px;
 							color: var(--text);
+							padding-left: var(--padding2side);
+
 
 							p {
 								position: relative;
@@ -707,6 +746,7 @@ body {
 					display: flex;
 					gap: 48px;
 					text-transform: uppercase;
+					padding: var(--padding2side);
 
 					p {
 						position: relative;
@@ -718,14 +758,16 @@ body {
 						content: "";
 						position: absolute;
 						bottom: -2px;
-						left: 0;
-						right: auto;
+						left: auto;
+						right: 0;
 						width: 0%;
 						height: 1px;
 						transition: width .4s ease-out;
 					}
 					p.active:before {
 						width: 100%;
+						left: 0;
+						right: auto;
 					}
 					p.hovering:before {
 						width: 0%;

@@ -1,16 +1,21 @@
 	height = $(window).innerHeight();
 
 function main() {
-	
-
 	const scrollHandler = new ScrollHandler('#scrollitem', '#scrollbar');
 	const jellyBlob 	= new JellyBlobCursor("#cursor", "#cursor .text");
 	const hoverHandler 	= new HoverHandler('.visHovering', '.thumbHovering', '#cursor');
+
+	const naviHeight = $(".naviSticky").innerHeight();
+	document.documentElement.style.setProperty("--naviHeight", ' ' +naviHeight+ 'px');
 
 	let marquee = gsap.utils.toArray(".marquee-format");
 	marquee.forEach((marquee, i) => {
 		new MarqueeCloner(marquee, 10);
 		new Marquee(marquee, 250);
+	})
+	let marqueeSmallText = gsap.utils.toArray(".marqueeSmallText");
+	marqueeSmallText.forEach((marquee, i) => {
+		new Marquee(marquee, 150);
 	})
 
 
@@ -31,7 +36,6 @@ function main() {
 	$('.workWithMe').hover(function() {
 		$(this).find('.arrowContainer').toggleClass('hovering');
 	})
-
 }
 function appendToHTML() {
 	const svgK = `<span>
@@ -49,6 +53,14 @@ class Marquee {
 		this.targetWidth = this.target.innerWidth();
 		this.speed = speed || 400;
 
+		if (this.selector.hasClass('reverseMarquee')) {
+			this.upstream();
+		} else {
+			this.downstream();
+		}
+	}
+
+	downstream() {
 		gsap.to(this.target, {
 			scrollTrigger: {
 				trigger: this.selector,
@@ -56,6 +68,21 @@ class Marquee {
 				end: 'bottom top',
 			},
 			x: -this.targetWidth,
+			repeat: -1,
+			ease: 'none',
+			duration: this.targetWidth / this.speed,
+		})
+	}
+	upstream() {
+		gsap.fromTo(this.target, {
+			x: -this.targetWidth,
+		},{
+			scrollTrigger: {
+				trigger: this.selector,
+				start: 'top bottom',
+				end: 'bottom top',
+			},
+			x: 0,
 			repeat: -1,
 			ease: 'none',
 			duration: this.targetWidth / this.speed,
@@ -367,10 +394,38 @@ class JellyBlobCursor {
 		// console.log(scale)
 	}
 }
+// function textInAnmation () {
+// 	// Find all the <p> elements you want to wrap with <span>
+// 	var pElements = document.querySelectorAll('p');
+
+// 	// Loop through each <p> element
+// 	pElements.forEach(function (pElement) {
+// 	  // Create a new <span> element
+// 	  var newSpan = document.createElement('span');
+
+// 	  // Wrap the contents of the <p> element with the new <span>
+// 	  while (pElement.firstChild) {
+// 	    newSpan.appendChild(pElement.firstChild);
+// 	  }
+
+// 	  // Append the new <span> element back inside the <p> element
+// 	  pElement.appendChild(newSpan);
+
+// 	  gsap.from(pElement, {
+// 	  	scrollTrigger: {
+// 	  		trigger: pElement,
+// 	  		start: "top 95%",
+// 	  		markers: true
+// 	  	},
+// 	  	yPercent: 100,
+// 	  })
+// 	});
+// }
 $(document).ready(function(e) {
 	main();
 	lightDarkMode();
 	appendToHTML();
+	// textInAnmation();
 
 	var loadCurtain = gsap.utils.toArray('.loadCurtain');
 
@@ -419,10 +474,13 @@ $(document).ready(function(e) {
 			prefetchLink.href = href;
 			document.head.appendChild(prefetchLink);
 			// Delay for 500ms
+			var lengthCurtain = gsap.utils.toArray('.loadCurtain').length;
+
 			setTimeout(() => {
 				// Redirect to the href value
+				console.log(lengthCurtain);
 				window.location.href = href;
-			}, 2000);
+			}, lengthCurtain*300);
 		});
 	});
 })

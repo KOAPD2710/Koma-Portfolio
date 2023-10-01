@@ -165,4 +165,16 @@ function notSafeForWork() {
 $(document).ready(function(e) {
 	notSafeForWork();
 	appendRandomLogoFooter();
+
+	gsap.to('.circleContainer svg', {
+		scrollTrigger: {
+			trigger: '.circleContainer',
+			start: 'top bottom',
+		},
+		transformOrigin: 'center center',
+		rotate: 360,
+		ease: 'none',
+		repeat: -1,
+		duration: 15,
+	})
 })

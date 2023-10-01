@@ -22,15 +22,15 @@ function work() {
 
 	let panels = gsap.utils.toArray(".section2 .panel");
 	
-	panels.forEach((panel, i) => {
+	panels.forEach((target) => {
 		ScrollTrigger.create({
-			trigger: panel,
+			trigger: target,
 			start: "top 71px",
 			pin: true, 
 			pinSpacing: false,
 		});
 
-		new MarqueeThumbnailText(panel);
+		new MarqueeThumbnailText(target);
 	});
 }
 
@@ -63,7 +63,7 @@ class MarqueeThumbnailText {
 		gsap.from(this.animationText, {
 			scrollTrigger: {
 				trigger: this.selector,
-				start: "top 70%",
+				start: "top 80%",
 				end: "100% 60%",
 				scrub: .5,
 			},
@@ -75,19 +75,16 @@ class MarqueeThumbnailText {
 			},
 			ease: Back.easeOut.config(2.7),
 		});
-		// gsap.from(this.animationText, {
-		// 	scrollTrigger: {
-		// 		trigger: this.selector,
-		// 		start: "top 90%",
-		// 		end: "100% 60%",
-		// 		scrub: true,
-		// 	},
-		// 	y: 200,
-		// 	stagger: {
-		// 		amount: .6,
-		// 	},
-		// 	ease: 'power1.in',
-		// });
+		gsap.to(this.container, {
+			scrollTrigger: {
+				trigger: this.selector,
+				start: "top bottom",
+				end: "bottom top",
+				scrub: true,
+			},
+			ease: 'none',
+			yPercent: -30,
+		})
 	}
 	thumbnailAnimation() {
 		gsap.fromTo(this.animationThumb, {
@@ -98,19 +95,12 @@ class MarqueeThumbnailText {
 				start: "top 90%",
 				end: "100% top",
 				scrub: true,
-				// markers: true,
 			},
-			yPercent: -5,
+			yPercent: -10,
 		})
 	}
 }
 
-class AnimatonThumbText {
-	constructor(selector) {
-		this.selector = $(selector);
-		
-	}
-}
 window.addEventListener('load', function() {
 	work();
 })
