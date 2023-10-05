@@ -32,6 +32,13 @@ function work() {
 
 		new MarqueeThumbnailText(target);
 	});
+
+	ScrollTrigger.create({
+		trigger: '#bodycontainer .intro',
+		start: "top 71px",
+		pin: true, 
+		pinSpacing: false,
+	});
 }
 
 class MarqueeThumbnailText {
@@ -41,6 +48,7 @@ class MarqueeThumbnailText {
 		this.container = this.parent.find('.text-thumb');
 		this.horizontalContent = this.container.find('.horizontal-content');
 		this.target = this.container.find('p');
+		this.headText = this.selector.find('.work-head-ts');
 
 		this.horizontalNumClones = horizontalNumClones || 12;
 		this.verticalNumClones = verticalNumClones || 20;
@@ -55,25 +63,25 @@ class MarqueeThumbnailText {
 		this.animationText = this.container.find('.horizontal-content');
 		this.animationThumb = this.parent.find('.thumbnail');
 
-
 		this.textAnimation();
 		this.thumbnailAnimation();
+		this.headTextAnimation();
 	}
 	textAnimation() {
 		gsap.from(this.animationText, {
 			scrollTrigger: {
 				trigger: this.selector,
-				start: "top 80%",
-				end: "100% 60%",
-				scrub: .5,
+				start: "top 85%",
+				end: "bottom 60%",
+				scrub: true,
 			},
-			y: 200,
+			y: 250,
 			scale: 2,
 			opacity: 0,
 			stagger: {
 				amount: .6,
 			},
-			ease: Back.easeOut.config(2.7),
+			ease: Back.easeOut.config(2.8),
 		});
 		gsap.to(this.container, {
 			scrollTrigger: {
@@ -83,7 +91,7 @@ class MarqueeThumbnailText {
 				scrub: true,
 			},
 			ease: 'none',
-			yPercent: -30,
+			yPercent: -20,
 		})
 	}
 	thumbnailAnimation() {
@@ -97,6 +105,17 @@ class MarqueeThumbnailText {
 				scrub: true,
 			},
 			yPercent: -10,
+		})
+	}
+	headTextAnimation() {
+		gsap.from(this.headText, {
+			scrollTrigger: {
+				trigger: this.selector,
+				start: "top bottom",
+				end: "bottom top",
+				scrub: true,
+			},
+			y: 80
 		})
 	}
 }

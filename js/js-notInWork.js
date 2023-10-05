@@ -20,12 +20,6 @@ class workWithMeBall {
 		this.speed = .8;
 		this.offsetTop = this.target.offset().top;
 
-		this.text = this.target.find('p');
-		this.text1 = this.target.find('.text1');
-		this.text.hover( () =>{
-			this.text1.toggleClass('hovering');
-		})
-
 		// Run on Mouse Move
 		const setFromEvent = (e) => {
 			const x = e.clientX;
@@ -156,15 +150,29 @@ function appendRandomLogoFooter() {
 
 	$('#lastFooter .bottom .randomLogoContainer').append(svgArray[randomIndex]);
 }
+function footerAnimation() {
+	var container = $('#lastFooter');
+	var target = container.find('svg');
 
-function notSafeForWork() {
-	new workWithMeBall('.workWithMe');
-	new footerNavigation('#lastFooter');
+	gsap.from($('#lastFooter .logoContainer svg'), {
+		scrollTrigger: {
+			trigger: container,
+			start: 'top bottom',
+			end: 'top 30%',
+			scrub: 1,
+		},
+		stagger: {
+			amount: .1
+		},
+		y: -200,
+		opacity: .5,
+		ease: 'back.out(1.7)',
+
+	})
 }
-
-$(document).ready(function(e) {
-	notSafeForWork();
+function notSafeForWork() {
 	appendRandomLogoFooter();
+	footerAnimation();
 
 	gsap.to('.circleContainer svg', {
 		scrollTrigger: {
@@ -177,4 +185,22 @@ $(document).ready(function(e) {
 		repeat: -1,
 		duration: 15,
 	})
+
+	// new workWithMeBall('.workWithMe');
+	new footerNavigation('#lastFooter');
+
+	ScrollTrigger.create({
+		trigger: '.WWM-container',
+		start: `top top`,
+		end: 'bottom 67px',
+		pin: true, 
+		pinSpacing: false,
+	});
+
+	$('.WWM-container p').hover(function() {
+		$('.WWM-container .text1').toggleClass('hovering')	
+	})
+}
+$(document).ready(function(e) {
+	notSafeForWork();
 })

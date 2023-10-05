@@ -1,4 +1,9 @@
-
+@font-face{
+	font-family: Fonttext;
+	src: url(../fonts/PPNeueMachina-InktrapUltralight.ttf);
+	font-weight: 200;
+	font-style: normal;
+}
 @font-face{
 	font-family: Fonttext;
 	src: url(../fonts/PPNeueMachina-InktrapRegular.ttf);
@@ -98,7 +103,7 @@
 }
 .hugetext-ts {
 	font-family: Fonttext;
-	font-size: 168px;
+	font-size: 170px;
 	text-transform: uppercase;
 	font-weight: 800;
 	line-height: 1;

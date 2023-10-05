@@ -167,6 +167,40 @@ body {
 			height .6s cubic-bezier(.35,1.56,.39,.99),
 			scale .8s ease-out;
 		}
+		.arrowContainer {
+			--ball: 150px;
+			--arrow: 60px;
+
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			translate: -50% -50%;
+			width: var(--ball);
+			height: var(--ball);
+			scale: 0;
+			transition: scale .5s cubic-bezier(0.34, 1.56, 0.64, 1);
+			pointer-events: none;
+
+			.arrowBall {
+				position: absolute;
+				top: 0%;
+				left: 0%;
+				width: var(--ball);
+				height: var(--ball);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: var(--red);
+				border-radius: 100000px;
+
+				svg {
+					width: var(--arrow);
+					height: var(--arrow);
+					fill: none;
+					stroke-width: 8px;
+				}
+			}
+		}
 	}
 
 	.text {
@@ -264,6 +298,9 @@ body {
 		}
 		.borderIn {
 			scale: 0;
+		}
+		.arrowContainer {
+			scale: 1;
 		}
 	}
 }
@@ -392,8 +429,21 @@ body {
 
 						p {
 							margin: 0px;
-							transition: font-style .1s ease;
+							transition: font-style .3s ease-out;
 							padding: 10px 0px;
+						}
+
+						p:before {
+							content: "";
+							position: absolute;
+							bottom: 0px;
+							display: block;
+							width: 0%;
+							left: auto;
+							right: 0;
+							height: var(--stroke);
+							background-color: var(--strokeColor);
+							transition: width .4s ease-out;
 						}
 					}
 				}
@@ -408,21 +458,15 @@ body {
 				}
 				li.active {
 					p:before {
-						content: "";
-						position: absolute;
-						bottom: 0px;
 						left: 0;
 						right: auto;
-						display: block;
 						width: 100%;
-						height: var(--stroke);
-						background-color: var(--strokeColor);
 						transition: width .4s ease-out;
 					}
 				}
 				li:hover {
 					p {
-						font-style: italic;
+						font-style: oblique 30deg;
 					}
 					p:before {
 						width: 0%;
@@ -516,281 +560,257 @@ body {
 		a {
 			color: var(--text);
 		}
-
-		.arrowContainer {
-			--ball: 150px;
-			--arrow: 60px;
-
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			translate: -50% -50%;
-			width: var(--ball);
-			height: var(--ball);
-			scale: 0;
-			transition: scale .5s ease-in-out;
-			pointer-events: none;
-
-			.arrowBall {
-				position: absolute;
-				top: 0%;
-				left: 0%;
-				width: var(--ball);
-				height: var(--ball);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background-color: var(--red);
-				border-radius: 100000px;
-
-				svg {
-					width: var(--arrow);
-					height: var(--arrow);
-					fill: none;
-					stroke-width: 8px;
-				}
-			}
-		}
-		.arrowContainer.hovering {
-			scale: 1;
-		}
 		p {
+			font-weight: 700;
 			margin: 0;
 			text-align: center;
 			transition: letter-spacing .3s ease-out;
 		}
-		p:nth-of-type(2) {
+		.text1 {
+			line-height: .8;
 			font-style: italic;
+			font-weight: 800;
+			font-size: 150%;
 		}
-
 		.text1.hovering{
 			color: var(--red);
 			letter-spacing: 10px;
 		}
 	}
+	.marqueeSmallText {
+		border-top: var(--stroke) solid var(--strokeColor);
+	}
 
-	#lastFooter {
+	.lastFooter-wrapper {
 		position: relative;
-		display: flex;
 		width: 100%;
-		height: calc(100vh - 1px);
+		height: 100vh;
 
-		.left {
+		#lastFooter {
 			position: relative;
 			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			flex-basis: calc(100% / 2);
-			padding: var(--padding2side);
+			width: 100%;
+			background-color: var(--fillColor);
+			height: calc(100vh - 38px);
+			overflow: hidden;
 
-			.logoContainer {
-				margin-bottom: 50px;
-				a {
-					display: flex;
-					height: 50px;
-					gap: 8px;
-
-					svg {
-						height: 100%;
-					}
-
-					.oSVG {
-						margin-left: -.5%;
-					}
-					.kLogo {fill: var(--red)}
-					.oLogo {fill: var(--text)}
-					.mLogo {fill: var(--green)}
-					.aLogo {fill: var(--blue)}
-				}
-			}
-			.bottom {
+			.left {
 				position: relative;
-				height: 75%;
 				display: flex;
 				flex-direction: column;
-				justify-content: flex-end;
+				justify-content: space-between;
+				flex-basis: calc(100% / 2);
+				padding: var(--padding2side);
 
-				.randomLogoContainer {
-					position: relative;
-					height: 70%;
-					display: flex;
-					justify-content: center;
-					margin-bottom: 100px;
+				.logoContainer {
+					margin-bottom: 50px;
+					a {
+						display: flex;
+						height: 50px;
+						gap: 8px;
 
-					svg {
-						height: 100%;
-					}
-
-					.kLogo {
-						fill: var(--red);
-					}
-					.oLogo {
-						fill: var(--text);
-					}
-					.mLogo {
-						fill: var(--green);
-					}
-					.aLogo {
-						fill: var(--blue);
-					}
-
-				}
-			}
-			
-			p {
-				margin: 0;
-			}
-		}
-		.right {
-			position: relative;
-			display: flex;
-			flex-basis: calc(100% / 2);
-			align-items: flex-end;
-
-			.rightContainer {
-				--gapLink: 25px;
-
-				width: 100%;
-				height: 100%;
-
-				.circleContainer {
-					position: relative;
-					display: block;
-					height: 50%;
-					// background-color: royalblue;
-					border-bottom: var(--stroke) solid var(--strokeColor);
-					overflow: hidden;
-
-					svg {
-						position: absolute;
-						top: 0;
-						left: 50%;
-						translate: -50% 5%;
-						width: 70%;
-						fill: var(--text);
-
-						.border {
-							fill: none !important;
-							stroke: var(--text);
-							stroke-width: .5px;
-							stroke-linecap: round;
+						svg {
+							height: 100%;
 						}
-						#redSmile {
-							fill: var(--red);
+
+						.oSVG {
+							margin-left: -.5%;
 						}
+						.kLogo {fill: var(--red)}
+						.oLogo {fill: var(--text)}
+						.mLogo {fill: var(--green)}
+						.aLogo {fill: var(--blue)}
 					}
 				}
-
-				.textContainer {
-					height: 50%;
+				.bottom {
+					position: relative;
+					height: 75%;
 					display: flex;
 					flex-direction: column;
 					justify-content: flex-end;
-				}
-				.infoText {
-					position: relative;
-					width: 100%;
-					text-transform: uppercase;
-					margin-bottom: 40px;
-					padding-left: var(--padding2side);
-					overflow: hidden;
 
-					.linkBox {
-						position: absolute;
-						top: 0;
-						left: 0;
+					.randomLogoContainer {
+						position: relative;
+						height: 70%;
 						display: flex;
-						flex-direction: column;
-						transition: transform .8s cubic-bezier(.25,-0.42,.42,1.32);
+						justify-content: center;
+						margin-bottom: 100px;
 
-						a {
-							margin: var(--gapLink) 0px;
-							color: var(--text);
-							padding-left: var(--padding2side);
+						svg {
+							height: 100%;
+						}
 
+						.kLogo {
+							fill: var(--red);
+						}
+						.oLogo {
+							fill: var(--text);
+						}
+						.mLogo {
+							fill: var(--green);
+						}
+						.aLogo {
+							fill: var(--blue);
+						}
 
-							p {
-								position: relative;
-								display: inline-block;
+					}
+				}
+				
+				p {
+					margin: 0;
+				}
+			}
+			.right {
+				position: relative;
+				display: flex;
+				flex-basis: calc(100% / 2);
+				align-items: flex-end;
+
+				.rightContainer {
+					--gapLink: 25px;
+
+					width: 100%;
+					height: 100%;
+
+					.circleContainer {
+						position: relative;
+						display: block;
+						height: 50%;
+						// background-color: royalblue;
+						border-bottom: var(--stroke) solid var(--strokeColor);
+						overflow: hidden;
+
+						svg {
+							position: absolute;
+							top: 0;
+							left: 50%;
+							translate: -50% 5%;
+							width: 70%;
+							fill: var(--text);
+
+							.border {
+								fill: none !important;
+								stroke: var(--text);
+								stroke-width: .5px;
+								stroke-linecap: round;
 							}
-							p::before {
-								content: "";
-								position: absolute;
-								bottom: -5px;
-								left: 0;
-								right: auto;
-								width: 100%;
-								height: 2px;
-								background-color: var(--strokeColor);
-								transition: width .6s ease-out;
-							}
-
-							p:hover::before {
-								width: 0%;
-								left: auto;
-								right: 0;
+							#redSmile {
+								fill: var(--red);
 							}
 						}
 					}
-					p {
-						margin: 0;
-						line-height: 1;
-						white-space: nowrap;
-					}
-					.demo {
-						visibility: hidden;
-						padding: var(--gapLink) 0px;					
-					}
-				}
-				.infoBtn {
-					display: flex;
-					gap: 48px;
-					text-transform: uppercase;
-					padding: var(--padding2side);
 
-					p {
+					.textContainer {
+						height: 50%;
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-end;
+					}
+					.infoText {
 						position: relative;
-						color: var(--text);
-						margin: 0;
-						cursor: pointer;
-					}
-					p::before {
-						content: "";
-						position: absolute;
-						bottom: -2px;
-						left: auto;
-						right: 0;
-						width: 0%;
-						height: 1px;
-						transition: width .4s ease-out;
-					}
-					p.active:before {
 						width: 100%;
-						left: 0;
-						right: auto;
+						text-transform: uppercase;
+						margin-bottom: 40px;
+						padding-left: var(--padding2side);
+						overflow: hidden;
+
+						.linkBox {
+							position: absolute;
+							top: 0;
+							left: 0;
+							display: flex;
+							flex-direction: column;
+							transition: transform .8s cubic-bezier(.25,-0.42,.42,1.32);
+
+							a {
+								margin: var(--gapLink) 0px;
+								color: var(--text);
+								padding-left: var(--padding2side);
+
+
+								p {
+									position: relative;
+									display: inline-block;
+								}
+								p::before {
+									content: "";
+									position: absolute;
+									bottom: -5px;
+									left: 0;
+									right: auto;
+									width: 100%;
+									height: 2px;
+									background-color: var(--strokeColor);
+									transition: width .6s ease-out;
+								}
+
+								p:hover::before {
+									width: 0%;
+									left: auto;
+									right: 0;
+								}
+							}
+						}
+						p {
+							margin: 0;
+							line-height: 1;
+							white-space: nowrap;
+						}
+						.demo {
+							visibility: hidden;
+							padding: var(--gapLink) 0px;					
+						}
 					}
-					p.hovering:before {
-						width: 0%;
-						left: auto;
-						right: 0;
-					}
-					.email::before {
-						background-color: var(--red);
-					}
-					.pnumber::before {
-						background-color: var(--green);
-					}
-					.facebook::before {
-						background-color: var(--blue);
-					}
-					.email.active {
-						color: var(--red);
-					}
-					.pnumber.active {
-						color: var(--green);
-					}
-					.facebook.active {
-						color: var(--blue);
+					.infoBtn {
+						display: flex;
+						gap: 48px;
+						text-transform: uppercase;
+						padding: var(--padding2side);
+
+						p {
+							position: relative;
+							color: var(--text);
+							margin: 0;
+							cursor: pointer;
+						}
+						p::before {
+							content: "";
+							position: absolute;
+							bottom: -2px;
+							left: auto;
+							right: 0;
+							width: 0%;
+							height: 1px;
+							transition: width .4s ease-out;
+						}
+						p.active:before {
+							width: 100%;
+							left: 0;
+							right: auto;
+						}
+						p.hovering:before {
+							width: 0%;
+							left: auto;
+							right: 0;
+						}
+						.email::before {
+							background-color: var(--red);
+						}
+						.pnumber::before {
+							background-color: var(--green);
+						}
+						.facebook::before {
+							background-color: var(--blue);
+						}
+						.email.active {
+							color: var(--red);
+						}
+						.pnumber.active {
+							color: var(--green);
+						}
+						.facebook.active {
+							color: var(--blue);
+						}
 					}
 				}
 			}
@@ -842,9 +862,10 @@ body {
 
 	position: relative;
 	width: 100%;
-	padding: calc(var(--gap)/2) 0px;
+	padding: calc(var(--gap)/3) 0px;
 	z-index: 10;
 	background-color: var(--fillColor);
+	overflow: hidden;
 	// border-bottom: none;
 
 	.marquee-container {

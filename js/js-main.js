@@ -13,17 +13,16 @@ function main() {
 		new MarqueeCloner(marquee, 10);
 		new Marquee(marquee, 250);
 	})
-	let marqueeSmallText = gsap.utils.toArray(".marqueeSmallText");
-	marqueeSmallText.forEach((marquee, i) => {
-		new Marquee(marquee, 150);
-	})
+	// let marqueeSmallText = gsap.utils.toArray(".marqueeSmallText");
+	// marqueeSmallText.forEach((marquee, i) => {
+	// 	new MarqueeSmall(marquee, 150);
+	// })
 
 
 	let marqueeLogo = gsap.utils.toArray(".marquee-logo");
 	marqueeLogo.forEach((marqueeLogo, i) => {
 		new MarqueeLogo(marqueeLogo, 1)
 	})
-
 
 	var hoveringTargets = ['.visHovering', '.thumbHovering', '.naviHovering', '.wwmHovering', '.goLinkHovering'];
 	hoveringTargets.forEach(function(hoveringTarget) {
@@ -35,6 +34,24 @@ function main() {
 
 	$('.workWithMe').hover(function() {
 		$(this).find('.arrowContainer').toggleClass('hovering');
+	})
+
+	pTags = gsap.utils.toArray('p');
+	const classNameToFilter = 'notThis';
+	const filteredPTags = pTags.filter(pTag => !pTag.classList.contains(classNameToFilter));
+
+	filteredPTags.forEach((target) =>  {
+		gsap.from(target, {
+			scrollTrigger: {
+				trigger: target,
+				start: 'top bottom',
+				toggleActions: 'play resume resume reset',
+			},
+			y: 40,
+			opacity: .2,
+			ease: 'expo.out',
+			duration: .6,
+		})
 	})
 }
 function appendToHTML() {
@@ -49,9 +66,16 @@ function appendToHTML() {
 class Marquee {
 	constructor(selector, speed) {
 		this.selector = $(selector);
+		this.container = this.selector.find('.marquee-container');
 		this.target = this.selector.find('.marquee-content');
 		this.targetWidth = this.target.innerWidth();
 		this.speed = speed || 400;
+
+		this.runSpeed = this.speed;
+
+		if (this.selector.hasClass('marqueeSmallText')) {
+			this.runSpeed = this.speed/1.2;
+		}
 
 		if (this.selector.hasClass('reverseMarquee')) {
 			this.upstream();
@@ -67,10 +91,19 @@ class Marquee {
 				start: 'top bottom',
 				end: 'bottom top',
 			},
+			onStart: () => {
+				gsap.from(this.container, {
+					yPercent: 150,
+					opacity: 0,
+					ease: "expo.out",
+					duration: 1,
+					delay: .2
+				})
+			},
 			x: -this.targetWidth,
 			repeat: -1,
 			ease: 'none',
-			duration: this.targetWidth / this.speed,
+			duration: this.targetWidth / this.runSpeed,
 		})
 	}
 	upstream() {
@@ -82,10 +115,18 @@ class Marquee {
 				start: 'top bottom',
 				end: 'bottom top',
 			},
+			onStart: () => {
+				gsap.from(this.container, {
+					yPercent: 150,
+					opacity: 0,
+					ease: "expo.out",
+					duration: 1,
+				})
+			},
 			x: 0,
 			repeat: -1,
 			ease: 'none',
-			duration: this.targetWidth / this.speed,
+			duration: this.targetWidth / this.runSpeed,
 		})
 	}
 }
@@ -259,6 +300,7 @@ class HoverHandler {
 		);
 	}
 }
+
 class ScrollHandler {
 	constructor(barSelector, scrollbarSelector) {
 		this.bar = $(barSelector);
@@ -314,6 +356,7 @@ class JellyBlobCursor {
 	constructor(cursorSelector, textSelector) {
 		this.jellyRef = $(cursorSelector);
 		this.textRef = $(textSelector);
+		this.arrowSelector = this.jellyRef.find('.arrowFooter');
 		this.box = this.jellyRef.find('.box');
 		this.pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 		this.prevPos = { x: this.pos.x, y: this.pos.y };
@@ -327,7 +370,7 @@ class JellyBlobCursor {
 		this.set.r 	= gsap.quickSetter(this.box, "rotate", "deg");
 		this.set.sx = gsap.quickSetter(this.box, "scaleX");
 		this.set.sy = gsap.quickSetter(this.box, "scaleY");
-		this.set.rt = gsap.quickSetter(this.textRef, "rotate", "deg");
+		this.set.rt = gsap.quickSetter(this.arrowSelector, "rotate", "deg");
 		this.speed = .8;
 
 		// Run on Mouse Move
@@ -390,37 +433,10 @@ class JellyBlobCursor {
 		this.set.r(rotation);
 		this.set.sx(1 + scale);
 		this.set.sy(1 - scale);
-		// this.set.rt(-rotation);
+		this.set.rt(-rotation);
 		// console.log(scale)
 	}
 }
-// function textInAnmation () {
-// 	// Find all the <p> elements you want to wrap with <span>
-// 	var pElements = document.querySelectorAll('p');
-
-// 	// Loop through each <p> element
-// 	pElements.forEach(function (pElement) {
-// 	  // Create a new <span> element
-// 	  var newSpan = document.createElement('span');
-
-// 	  // Wrap the contents of the <p> element with the new <span>
-// 	  while (pElement.firstChild) {
-// 	    newSpan.appendChild(pElement.firstChild);
-// 	  }
-
-// 	  // Append the new <span> element back inside the <p> element
-// 	  pElement.appendChild(newSpan);
-
-// 	  gsap.from(pElement, {
-// 	  	scrollTrigger: {
-// 	  		trigger: pElement,
-// 	  		start: "top 95%",
-// 	  		markers: true
-// 	  	},
-// 	  	yPercent: 100,
-// 	  })
-// 	});
-// }
 $(document).ready(function(e) {
 	main();
 	lightDarkMode();
@@ -432,13 +448,12 @@ $(document).ready(function(e) {
 	function pageInTransition() {
 		gsap.to(loadCurtain, {
 			height: '0%',
-			duration: 1.2,
-			ease: "power3.out",
+			duration: 2,
+			ease: "expo.inOut",
 			stagger: {
 				each: .5,
 				amount: .5,
 			},
-			delay: .2,
 			onStart: function () {
 				$('#handlePageTransition').css('display', 'none');
 			}
@@ -447,8 +462,8 @@ $(document).ready(function(e) {
 	function pageOutTransition() {
 		gsap.to(loadCurtain, {
 			height: '100%',
-			duration: .8,
-			ease: "Power3.out",
+			duration: 1.5,
+			ease: "expo.in",
 			stagger: {
 				each: .3,
 				amount: .5,
@@ -464,6 +479,7 @@ $(document).ready(function(e) {
 	links.forEach((link) => {
 		// Add click event listener
 		link.addEventListener("click", function (e) {
+			$('#naviLink .link li').removeClass('active');
 			pageOutTransition();
 			// Prevent default behavior
 			e.preventDefault();
@@ -475,12 +491,12 @@ $(document).ready(function(e) {
 			document.head.appendChild(prefetchLink);
 			// Delay for 500ms
 			var lengthCurtain = gsap.utils.toArray('.loadCurtain').length;
+			console.log(lengthCurtain);
 
 			setTimeout(() => {
 				// Redirect to the href value
-				console.log(lengthCurtain);
 				window.location.href = href;
-			}, lengthCurtain*300);
+			}, lengthCurtain*200);
 		});
 	});
 })

@@ -67,6 +67,19 @@ function index() {
 		repeat: -1,
 		duration: 15,
 	})
+	gsap.fromTo('.section4 .cardDiv', {
+		y: 100
+	}, {
+		scrollTrigger: {
+			trigger: '.section4',
+			start: 'top bottom',
+			end: 'bottom top',
+			scrub: .5,
+			// markers: true
+		},
+		y: -100,
+		ease: 'power1.in'
+	})
 	gsap.fromTo('.section4 .circle1', {
 		yPercent: 50,
 		// scale: 1,
@@ -96,6 +109,7 @@ function index() {
 
 	new workSelectionThumbNew('#workSelectionThumb', '.section6');
 }
+
 class workSelectionThumbNew {
 	constructor(target, wrapper) {
 		this.target = $(target);
@@ -285,7 +299,6 @@ function landingPage() {
 	const tl = gsap.timeline();
 
 	tl.from(letterLandPage, {
-		// visibility: 'hidden',
 		display: "none",
 		stagger: .09,
 		ease: 'expo.out',
@@ -302,14 +315,15 @@ function landingPage() {
 		opacity: 0,
 		ease: 'sine.inOut',
 		duration: 1,
-	}, 5).to(logoLandingPage, {
+	}, 5).to(logoLandingPage.find('.path'), {
 		opacity: 0,
 		ease: 'sine.inOut',
 		duration: 1,
+		// stagger: .2,
 	}, 5.5).to(landPage, {
 		height: 0,
 		ease: 'sine.inOut',
-		duration: 1,
+		duration: .8,
 		onStart: () => {
 			gsap.set(loadCurtain, {height: "100%"});
 		},
@@ -318,15 +332,15 @@ function landingPage() {
 			landPage.css('display', 'none');
 			gsap.to(loadCurtain, {
 				height: '0%',
-				duration: .8,
-				ease: "power3.out",
+				duration: 2,
+				ease: "expo.inOut",
 				stagger: {
 					each: .5,
 					amount: .5,
-				}
+				},
 			})
 		}
-	}, 6);
+	}, 5.8);
 }
 function disableScroll() {
 	// Store the current scroll position
@@ -366,7 +380,7 @@ function enableScroll() {
 	document.body.style.position = '';
 	document.body.style.overflowY = '';
 	document.body.style.top = '';
-
+	
 	// Scroll to the original position
 	window.scrollTo(0, scrollY);
 
@@ -376,10 +390,148 @@ function enableScroll() {
 }
 $(document).ready(function(e){
 	splitText();
-	// landingPage();
+	landingPage();
 	new selectedWorkSectionNew('.section6');
 })
 window.addEventListener('load', function() {
 	index();
 	// workSelectionThumb()
+	// new checkPos('.section4 .card');
+	new Parallax3D('.section4 .card');
 })
+
+class checkPos {
+	constructor(target) {
+
+		this.target = $(target);
+
+		this.offsetTop = this.target.offset().top;
+		this.height = this.target.innerHeight();
+		this.offsetLeft = this.target.offset().left;
+		this.width = this.target.innerWidth();
+
+		this.toptop = this.offsetTop+this.height/2;
+
+		$(document).on('scroll',() => {
+			this.updateToptop()
+
+			$('.offsetTop').css('top', ' ' + this.toptop + 'px');
+			$('.offsetLeft').css('top', ' ' + (this.offsetTop-300) + 'px');
+			$('.offsetLeft').css('left', ' ' + (this.offsetLeft+this.width/2) + 'px');
+			// console.log(this.toptop);
+		})
+	}
+	updateToptop() {
+		this.offsetTop = this.target.offset().top;
+		this.height = this.target.innerHeight();
+		this.toptop = this.offsetTop + this.height / 2;
+	}
+}
+
+class Parallax3D {
+	constructor(target) {
+		this.target = $(target);
+		this.svg = this.target.find('.back').find('svg');
+		this.logo = this.target.find('.front').find('svg');
+		this.text = this.target.find('.front').find('.text');
+
+		var request = null;
+		var mouse = {x: 0, y: 0};
+		var scrollTop = window.scrollY || window.pageYOffset;
+
+		this.offsetTop = this.target.offset().top;
+		this.height = this.target.innerHeight();
+		this.offsetLeft = this.target.offset().left;
+		this.width = this.target.innerWidth();
+
+		var middleX = this.offsetLeft+this.width/2;
+		var middleY = this.offsetTop+this.height/2;
+
+		var self = this;
+
+		let isActivated = false;
+
+		gsap.to(this.target, {
+			scrollTrigger: {
+				trigger: this.target,
+				start: 'top bottom',
+				endTrigger: '.section5',
+				end: 'top top',
+				onToggle: (self) => {
+					isActivated = self.isActive;
+				},
+				toggleClass: 'isActive',
+			}
+		})
+
+		function onMouseMove(event) {
+			if (!isActivated) {
+				return
+			}
+
+			mouse.x = event.pageX;
+			mouse.y = event.pageY;
+
+			cancelAnimationFrame(request);
+			request = requestAnimationFrame(update);
+		}
+
+		window.addEventListener('mousemove', onMouseMove);
+
+		function update() {
+			self.offsetTop = self.target.offset().top;
+			self.offsetLeft = self.target.offset().left;
+
+			middleX = self.offsetLeft + self.width/2;
+			middleY = self.offsetTop + self.height/2;
+
+			var dx = mouse.x - middleX;
+			var dy = mouse.y - middleY;
+
+			var tiltx = -(dy / middleY);
+			var tilty = (dx / middleX);
+			var radius = Math.sqrt(Math.pow(tiltx, 2) + Math.pow(tilty, 2));
+			var degree = (radius*40);
+
+			gsap.to(self.target, {
+				transform: 'rotate3d(' + tiltx + ', ' + tilty + ', 0, ' + degree + 'deg)',
+				ease: 'expo.out',
+				duration: 2,
+			});
+
+			var tiltRatioBig = 30;
+			gsap.to(self.svg, {
+				x: tilty*tiltRatioBig,
+				y: -tiltx*tiltRatioBig,
+				ease: 'expo.out',
+				duration: 2,
+			})
+			var tiltRatioLogo = 10;
+			gsap.to(self.logo, {
+				x: tilty*tiltRatioLogo,
+				y: -tiltx*tiltRatioLogo,
+				ease: 'expo.out',
+				duration: 2,
+			})
+			var tiltRatioText = 20;
+			gsap.to(self.text, {
+				x: tilty*tiltRatioText,
+				y: -tiltx*tiltRatioText,
+				ease: 'expo.out',
+				duration: 2,
+			})
+		}
+
+		$(window).resize(function() {
+			middleX = this.offsetLeft+this.width/2;
+			middleY = this.offsetTop+this.height/2;
+		});
+
+		window.addEventListener('scroll', function() {
+			middleX = this.offsetLeft+this.width/2;
+			middleY = this.offsetTop+this.height/2;
+
+			scrollTop = window.scrollY || window.pageYOffset;
+		});
+	}
+}
