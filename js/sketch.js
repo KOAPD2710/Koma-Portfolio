@@ -209,7 +209,7 @@ function setup() {
 			blackColor = "#222",
 			whiteColor = "#FDFBF3";
 
-		loadSvg('./js/svg/k.svg').then(function(root) {
+		loadSvg('./js/svg/K.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
@@ -220,7 +220,7 @@ function setup() {
 				}
 			}, true));
 		});
-		loadSvg('./js/svg/o.svg').then(function(root) {
+		loadSvg('./js/svg/O.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
@@ -234,7 +234,7 @@ function setup() {
 				}
 			}, true));
 		});
-		loadSvg('./js/svg/m.svg').then(function(root) {
+		loadSvg('./js/svg/M.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
@@ -246,7 +246,7 @@ function setup() {
 				}
 			}, true));
 		});
-		loadSvg('./js/svg/a.svg').then(function(root) {
+		loadSvg('./js/svg/A.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
