@@ -682,10 +682,12 @@ body {
 
 						svg {
 							position: absolute;
-							top: 0;
-							left: 50%;
-							translate: -50% 5%;
-							width: 70%;
+							top: auto;
+							bottom: 0;
+							left: 0%;
+							translate: -50% 50%;
+							// width: 70%;
+							height:180%;
 							fill: var(--text);
 
 							.border {

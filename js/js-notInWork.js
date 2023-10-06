@@ -192,7 +192,7 @@ function notSafeForWork() {
 	ScrollTrigger.create({
 		trigger: '.WWM-container',
 		start: `top top`,
-		end: 'bottom 67px',
+		end: 'bottom 65px',
 		pin: true, 
 		pinSpacing: false,
 	});

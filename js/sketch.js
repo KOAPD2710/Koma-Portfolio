@@ -138,14 +138,12 @@ function Circle(x, y, w, url){
 
 var thickness = 1000,
 	deduct = thickness/2,
-	// deduct = 0,
 	posX = canvasSize.width/2,
 	posY = canvasSize.height/2,
-	// size = canvasSize.width/10,
 	SVGsize = 200,
 	size = 100;
 
-const 	svgScale = Math.min(Math.max(((canvasSize.width*1.5/5)/SVGsize), .7), 1.4);
+const 	svgScale = Math.min(Math.max(((canvasSize.width*1.2/5)/SVGsize), .7), 1.4);
 		svgRatio = 1,
 		trueWidth = svgScale*SVGsize,
 		svgGap = .1*trueWidth;
@@ -163,8 +161,8 @@ function setup() {
 	wallR =		new Ground(canvasSize.width+deduct, posY, thickness, canvasSize.height);
 	roof =		new Ground(posX, -deduct, canvasSize.width, thickness);
 
-	smile1 = new Circle(200, 200, trueWidth, './imgs/Test.svg');
-	smile2 = new Circle(200, 200, trueWidth, './imgs/Test - Copy.svg');
+	smile1 = new Circle(Math.random()*canvasSize.width, Math.random()*canvasSize.height, trueWidth, './imgs/Test.svg');
+	smile2 = new Circle(Math.random()*canvasSize.width, Math.random()*canvasSize.height, trueWidth, './imgs/Test - Copy.svg');
 
 
 	if (typeof fetch !== 'undefined') {
@@ -262,8 +260,8 @@ function setup() {
 		Common.warn('Fetch is not available. Could not load SVG.');
 	}
 }
+
 document.addEventListener("scroll", () => {
-		// circle.applyForce();
 	smile1.applyForce();
 	smile2.applyForce();
 });
