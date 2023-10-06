@@ -163,8 +163,8 @@ function setup() {
 	wallR =		new Ground(canvasSize.width+deduct, posY, thickness, canvasSize.height);
 	roof =		new Ground(posX, -deduct, canvasSize.width, thickness);
 
-	avas = new Circle(200, 200, trueWidth, './imgs/Test.svg');
-	avab = new Circle(200, 200, trueWidth, './imgs/Test - Copy.svg');
+	smile1 = new Circle(200, 200, trueWidth, './imgs/Test.svg');
+	smile2 = new Circle(200, 200, trueWidth, './imgs/Test - Copy.svg');
 
 
 	if (typeof fetch !== 'undefined') {
@@ -209,7 +209,7 @@ function setup() {
 			blackColor = "#222",
 			whiteColor = "#FDFBF3";
 
-		loadSvg('./js/svg/K.svg').then(function(root) {
+		loadSvg('./js/svg/k.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
@@ -220,7 +220,7 @@ function setup() {
 				}
 			}, true));
 		});
-		loadSvg('./js/svg/O.svg').then(function(root) {
+		loadSvg('./js/svg/o.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
@@ -234,7 +234,7 @@ function setup() {
 				}
 			}, true));
 		});
-		loadSvg('./js/svg/M.svg').then(function(root) {
+		loadSvg('./js/svg/m.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
@@ -246,7 +246,7 @@ function setup() {
 				}
 			}, true));
 		});
-		loadSvg('./js/svg/A.svg').then(function(root) {
+		loadSvg('./js/svg/a.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
 				.map(function(path) {
 					return Vertices.scale(Svg.pathToVertices(path, svgRatio), svgScale, svgScale);
@@ -264,8 +264,8 @@ function setup() {
 }
 document.addEventListener("scroll", () => {
 		// circle.applyForce();
-	avas.applyForce();
-	avab.applyForce();
+	smile1.applyForce();
+	smile2.applyForce();
 });
 var mouse = Mouse.create(render.canvas),
 	mouseConstraint = MouseConstraint.create(engine, {
