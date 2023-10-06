@@ -19,6 +19,13 @@ var canvas = document.getElementById("physicalDiv");
 var canvasSize = {width: canvas.clientWidth, height: canvas.clientHeight};
 var render;
 
+function percentX(percent) {
+	return Math.round((percent / 100) * canvasSize.width);
+}
+function percentY(percent) {
+	return Math.round((percent / 100) * canvasSize.height);
+}
+
 function updateCanvasSize() {
 	const canvas = document.getElementById("physicalDiv");
 	canvasSize.width = canvas.clientWidth;
@@ -37,13 +44,6 @@ function updateCanvasSize() {
 updateCanvasSize();
 
 window.addEventListener("resize", updateCanvasSize);
-
-function percentX(percent) {
-	return Math.round((percent / 100) * canvasSize.width);
-}
-function percentY(percent) {
-	return Math.round((percent / 100) * canvasSize.height);
-}
 
 // create a renderer
 var render = Render.create({
