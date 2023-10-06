@@ -91,15 +91,15 @@ class Marquee {
 				start: 'top bottom',
 				end: 'bottom top',
 			},
-			onStart: () => {
-				gsap.from(this.container, {
-					yPercent: 150,
-					opacity: 0,
-					ease: "expo.out",
-					duration: 1,
-					delay: .2
-				})
-			},
+			// onStart: () => {
+			// 	gsap.from(this.container, {
+			// 		yPercent: 150,
+			// 		opacity: 0,
+			// 		ease: "expo.out",
+			// 		duration: 1,
+			// 		delay: .2
+			// 	})
+			// },
 			x: -this.targetWidth,
 			repeat: -1,
 			ease: 'none',
@@ -115,14 +115,14 @@ class Marquee {
 				start: 'top bottom',
 				end: 'bottom top',
 			},
-			onStart: () => {
-				gsap.from(this.container, {
-					yPercent: 150,
-					opacity: 0,
-					ease: "expo.out",
-					duration: 1,
-				})
-			},
+			// onStart: () => {
+			// 	gsap.from(this.container, {
+			// 		yPercent: 150,
+			// 		opacity: 0,
+			// 		ease: "expo.out",
+			// 		duration: 1,
+			// 	})
+			// },
 			x: 0,
 			repeat: -1,
 			ease: 'none',
