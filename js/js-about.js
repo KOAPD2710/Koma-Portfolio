@@ -36,7 +36,7 @@ function about() {
 	// 	new MarqueeAnimation(targetSelector, 180);
 	// });
 
-	const s3Urls = ['./imgs/svg/Smile2.svg', './imgs/svg/Asset 4.svg', './imgs/svg/Asset 5.svg', './imgs/svg/Asset 6.svg', './imgs/svg/Asset 7.svg', './imgs/svg/Asset 8.svg', './imgs/svg/Asset 9.svg', './imgs/svg/Asset 10.svg', './imgs/svg/Asset 11.svg', './imgs/svg/Asset 12.svg', './imgs/svg/Asset 13.svg', './imgs/svg/Asset 14.svg', './imgs/svg/Asset 15.svg', './imgs/svg/Asset 16.svg', './imgs/svg/Asset 17.svg', './imgs/svg/Asset 18.svg', './imgs/svg/Asset 19.svg', './imgs/svg/Asset 20.svg', './imgs/svg/Asset 21.svg', './imgs/svg/Asset 22.svg', './imgs/svg/Asset 23.svg', './imgs/svg/Asset 24.svg', './imgs/svg/Asset 25.svg', './imgs/svg/Asset 26.svg', './imgs/svg/Asset 27.svg', './imgs/svg/Asset 28.svg', './imgs/svg/Asset 29.svg', './imgs/svg/Asset 30.svg'];
+	const s3Urls = ['./imgs/svg/Smile2.svg', './imgs/svg/bl1.svg', './imgs/svg/bl2.svg', './imgs/svg/bl3.svg', './imgs/svg/bl4.svg', './imgs/svg/bl5.svg', './imgs/svg/bl6.svg', './imgs/svg/bl7.svg', './imgs/svg/bl8.svg', './imgs/svg/bl9.svg', './imgs/svg/bl20.svg', './imgs/svg/bl21.svg', './imgs/svg/bl22.svg', './imgs/svg/bl23.svg', './imgs/svg/bl24.svg', './imgs/svg/bl25.svg', './imgs/svg/bl26.svg', './imgs/svg/bl27.svg', './imgs/svg/bl28.svg', './imgs/svg/bl29.svg', './imgs/svg/bl30.svg'];
 	const animation = new BalloonAnimation('.section3 #flyingBalloons', 40, 7, 10, s3Urls);
 
 	const s3Smile = new FloatingAnimation('.section3 .left .smile img', 50, 50, 15, 5);
