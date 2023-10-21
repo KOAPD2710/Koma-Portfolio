@@ -1,10 +1,13 @@
+.s1s2-wrapper {
+	position: relative;
+	display: block;
+	width: 100%;
+}
 .section1 {
 	position: relative;
 	display: block;
 	width: 100%;
-	height: 100vh;
 	overflow: hidden;
-	border-bottom: var(--stroke) solid var(--strokeColor);
 
 	.naviHeight {
 		position: relative;
@@ -17,7 +20,6 @@
 		position: relative;
 		display: flex;
 		width: 100%;
-		height: 100%;
 
 		.square1 {
 			display: flex;
@@ -41,7 +43,6 @@
 			.marquee-format {
 				width: 100%;
 				z-index: 2;
-				// height: fit-content;
 			}
 			.top {
 				border-bottom: var(--stroke) solid var(--strokeColor);
@@ -71,28 +72,53 @@
 	position: relative;
 	display: flex;
 	width: 100%;
-	height: 95vh;
+	height: 80vh;
 
 	.left {
 		position: relative;
 		flex-basis: calc(100% / 2);
+		overflow: hidden;
 
-		svg{
-			display: none;
+		.smile {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			translate: -50% -50%;
+			width: 20%;
+			max-width: 300px;
+			z-index: 2;
+
+			img {
+				width: 100%;
+			}
 		}
+		.targetObject {
+			position: absolute;
+			top: 0;
+			left: 0;
+			translate: -50%, -50%;
+			width: 60px;
+			z-index: 1;
+
+			img {
+				width: 100%;
+				filter: drop-shadow(4.5px 4.5px 1px var(--text));
+			}
+		}
+
 	}
 	.right {
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		flex-basis: calc(100% / 2);
-		padding: var(--dis);
 		justify-content: space-between;
 
-		.title-ts {
-			span {
-				color: var(--red);
-			}
+		p {
+			border-bottom: none;
+		}
+		p:first-child {
+			border-top: none;
 		}
 	}
 }
@@ -100,72 +126,105 @@
 	position: relative;
 	display: flex;
 	width: 100%;
-	height: 95vh;
+	height: 50vh;
 	border-top: var(--stroke) solid var(--strokeColor);
+	border-bottom: var(--stroke) solid var(--strokeColor);
 
 	.left {
 		position: relative;
 		flex-basis: calc(100% / 2);
-		overflow: hidden;
-
-		.imgContainer {
-			position: relative;
-			display: flex;
-			width: 100%;
-			height: 100%;
-			justify-content: center;
-			align-items: flex-end;
-
-			img, video {
-				height: 85%;
-				filter: drop-shadow(0px -1px 0 #FDFBF3)
-						drop-shadow(1px 0px 0 #FDFBF3)
-						drop-shadow(0px 1px 0 #FDFBF3)
-						drop-shadow(-1px 0px 0 #FDFBF3);
-			}
-		}
+		border-bottom: none;
 	}
 	.right {
 		position: relative;
 		display: block;
 		flex-basis: calc(100% / 2);
+		border-bottom: none;
 		overflow: hidden;
 
-		.text {
-			padding: var(--dis);
-			border-bottom: var(--stroke) solid var(--strokeColor);
+		p {
+			border-bottom: none;
 		}
-
-		.marquee {
-			--newgap: 15%;
-
-			display: flex;
-			align-items: center;
-
-			.marquee-format {
-				height: 70%;
-				padding: calc(var(--newgap)/2) 0;
-
-				.marquee-container {
-					height: 100%;
-					
-					.marquee-content{
-						gap: var(--newgap);
-						padding-left: var(--newgap);
-					}
-
-					svg {
-						height: 100%;
-					}
-				}
-			}
+		p:first-child {
+			border-top: none;
 		}
 	}
 }
 
+.section6 {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
 
+	.logo-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
 
+		svg {
+			position: absolute;
+			width: 10%;
+			max-width: 250px;
+			min-width: 150px;
+			aspect-ratio: 1;
 
+			--top1: 35%;
+			--left1: 15%;
+			--top2: 20%;
+			--left2: 33%;
+		}
+
+		.kLogo {
+			top: var(--top1);
+			left: var(--left1);
+			fill: var(--red) !important;
+		}
+		.oLogo {
+			top: var(--top2);
+			left: var(--left2);
+			fill: var(--text);
+		}
+		.mLogo {
+			top: var(--top2);
+			left: auto;
+			right: var(--left2);
+			fill: var(--green) !important;
+		}
+		.aLogo {
+			top: var(--top1);
+			left: auto;
+			right: var(--left1);
+			fill: var(--blue) !important;
+		}
+	}
+
+	.character {
+		position: absolute;
+		left: 50%;
+		bottom: 0;
+		translate: -50% 0;
+		height: 80vh;
+
+		img {
+			height: 100%;
+			filter: drop-shadow(-2px -2px 0px var(--text))
+					drop-shadow(0px -2px 0px var(--text))
+					drop-shadow(2px -2px 0px var(--text))
+					drop-shadow(-2px 0px 0px var(--text))
+					drop-shadow(2px 0px 0px var(--text))
+					drop-shadow(-2px 2px 0px var(--text))
+					drop-shadow(0px 2px 0px var(--text))
+					drop-shadow(2px 2px 0px var(--text));
+
+		}
+	}
+}
+
+footer {
+	border-top: var(--stroke) solid var(--strokeColor);
+}
 
 // .expertField {
 // 	position: relative;

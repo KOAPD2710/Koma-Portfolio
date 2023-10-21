@@ -68,8 +68,8 @@ var runner = Runner.create();
 	Runner.run(runner, engine);
 
 var wallOptions = {
-		friction: .2,
-		restitution: .2,
+		friction: .3,
+		restitution: .9,
 		isStatic: true,
 		render : {
 			fillStyle: "transparent",
@@ -92,8 +92,9 @@ function Circle(x, y, w, url){
 	this.url = url;
 
 	var options = {
-			friction: .7,
-			restitution: .7,
+			friction: .4,
+			frictionAir: .015,
+			restitution: .9,
 			angle : 0,
 			chamfer : {
 				radius : radius,
@@ -148,7 +149,7 @@ const 	svgScale = Math.min(Math.max(((canvasSize.width*1.2/5)/SVGsize), .7), 1.4
 		trueWidth = svgScale*SVGsize,
 		svgGap = .1*trueWidth;
 		startPos = (canvasSize.width - (trueWidth*4) - (svgGap*3))/2,
-		startY = canvasSize.height - trueWidth - svgGap;
+		startY = canvasSize.height;
 
 var SVGScaleRatio = trueWidth*2/300,
 	forceconts = -(trueWidth*0.0008);
@@ -161,8 +162,8 @@ function setup() {
 	wallR =		new Ground(canvasSize.width+deduct, posY, thickness, canvasSize.height);
 	roof =		new Ground(posX, -deduct, canvasSize.width, thickness);
 
-	smile1 = new Circle(Math.random()*canvasSize.width, Math.random()*canvasSize.height, trueWidth, './imgs/Test.svg');
-	smile2 = new Circle(Math.random()*canvasSize.width, Math.random()*canvasSize.height, trueWidth, './imgs/Test - Copy.svg');
+	smile1 = new Circle(Math.random()*canvasSize.width, Math.random()*canvasSize.height, trueWidth, './imgs/Smile2.svg');
+	smile2 = new Circle(Math.random()*canvasSize.width, Math.random()*canvasSize.height, trueWidth, './imgs/Smile2.svg');
 
 
 	if (typeof fetch !== 'undefined') {
@@ -205,7 +206,9 @@ function setup() {
 			greenColor = "#00A167",
 			blueColor = "#0073C6",
 			blackColor = "#222",
-			whiteColor = "#FDFBF3";
+			whiteColor = "#FDFBF3"
+			frictionSVG = .2,
+			restitutionSVG = .7;
 
 		loadSvg('./js/svg/k.svg').then(function(root) {
 			var vertexSets = select(root, 'path')
@@ -215,7 +218,9 @@ function setup() {
 			Composite.add(world, Bodies.fromVertices(startPos+trueWidth/2, Math.random()*startY , vertexSets, {
 				render: {
 					fillStyle: redColor,
-				}
+				},
+				friction: frictionSVG,
+				restitution: restitutionSVG,
 			}, true));
 		});
 		loadSvg('./js/svg/o.svg').then(function(root) {
@@ -229,7 +234,9 @@ function setup() {
 					fillStyle: blackColor,
 					strokeStyle: whiteColor,
 					lineWidth: 2
-				}
+				},
+				friction: frictionSVG,
+				restitution: restitutionSVG,
 			}, true));
 		});
 		loadSvg('./js/svg/m.svg').then(function(root) {
@@ -241,7 +248,9 @@ function setup() {
 			Composite.add(world, Bodies.fromVertices(startPos+trueWidth*5/2+2*svgGap, Math.random()*startY, vertexSets, {
 				render: {
 					fillStyle: greenColor,
-				}
+				},
+				friction: frictionSVG,
+				restitution: restitutionSVG,
 			}, true));
 		});
 		loadSvg('./js/svg/a.svg').then(function(root) {
@@ -253,7 +262,9 @@ function setup() {
 			Composite.add(world, Bodies.fromVertices(startPos+trueWidth*7/2+3*svgGap, Math.random()*startY, vertexSets, {
 				render: {
 					fillStyle: blueColor,
-				}
+				},
+				friction: frictionSVG,
+				restitution: restitutionSVG,
 			}, true));
 		});
 	} else {
@@ -261,7 +272,7 @@ function setup() {
 	}
 }
 
-document.addEventListener("scroll", () => {
+document.addEventListener("scroll", function() {
 	smile1.applyForce();
 	smile2.applyForce();
 });
@@ -316,10 +327,6 @@ document.addEventListener('mouseup', () => console.log(click ? 'click' : 'drag')
 // 		}
 // 	}
 // });
-const pathK = "m16.6,14.3c8.5-2.3,11.4-7.6,12-13.1C28.7.3,28.5,0,27.5,0c-8.8,0-17.5,0-26.3,0C.2,0,0,.3,0,1.2v26.2c0,.9.2,1.2,1.2,1.2,8.8,0,17.5,0,26.3,0,1,0,1.2-.3,1.1-1.2-.6-5.5-3.5-10.8-12-13.1Z";
-const pathO = "m136.8,273.6C61.4,273.6,0,212.2,0,136.8S61.4,0,136.8,0s136.8,61.4,136.8,136.8-61.4,136.8-136.8,136.8Zm0-272.6C61.9,1,1,61.9,1,136.8s60.9,135.8,135.8,135.8,135.8-60.9,135.8-135.8S211.7,1,136.8,1Z";
-
-const paths = [pathK, pathO];
 
 // run the engine
 Runner.run(engine);

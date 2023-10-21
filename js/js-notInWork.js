@@ -198,7 +198,18 @@ function notSafeForWork() {
 	});
 
 	$('.WWM-container p').hover(function() {
-		$('.WWM-container .text1').toggleClass('hovering')	
+		$('.WWM-container .text1').toggleClass('hovering');
+	})
+
+	gsap.from('#lastFooter .right svg', {
+		scrollTrigger: {
+			trigger: '.lastFooter-wrapper',
+			start: 'top bottom',
+			end: 'bottom bottom',
+			scrub: true,
+		},
+		yPercent: -115,
+		ease: 'none'
 	})
 }
 $(document).ready(function(e) {

@@ -35,13 +35,9 @@
 				flex-direction: column;
 				justify-content: space-between;
 				height: 100%;
-				padding: var(--padding2side);
 
-				.title {
-					max-width: 600px;
-					span {
-						color: var(--red);
-					}
+				p {
+					border: none;
 				}
 			}
 		}
@@ -59,13 +55,15 @@
 		position: relative;
 		display: flex;
 		flex-basis: calc(100% / 2);
-		padding: var(--dis);
 		border-bottom: none;
 	}
 	.square2 {
 		flex-basis: calc(100% / 2);
-		padding: var(--dis);
 		border-bottom: none;
+
+		p {
+			border-bottom: none;
+		}
 	}
 }
 

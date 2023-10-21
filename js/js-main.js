@@ -2,11 +2,18 @@
 
 function main() {
 	const scrollHandler = new ScrollHandler('#scrollitem', '#scrollbar');
-	const jellyBlob 	= new JellyBlobCursor("#cursor", "#cursor .text");
-	const hoverHandler 	= new HoverHandler('.visHovering', '.thumbHovering', '#cursor');
+	const jellyBlob 	= new JellyBlobCursor("#cursorTarget", "#cursorTarget .text");
+	const hoverHandler 	= new HoverHandler('.visHovering', '.thumbHovering', '#cursorTarget');
 
 	const naviHeight = $(".naviSticky").innerHeight();
 	document.documentElement.style.setProperty("--naviHeight", ' ' +naviHeight+ 'px');
+
+	gsap.to('#cursorTarget .goLink .circleprj-container', {
+		rotate: 360,
+		duration: 8,
+		repeat: -1,
+		ease: 'none',
+	})
 
 	let marquee = gsap.utils.toArray(".marquee-format");
 	marquee.forEach((marquee, i) => {
@@ -26,7 +33,7 @@ function main() {
 
 	var hoveringTargets = ['.visHovering', '.thumbHovering', '.naviHovering', '.wwmHovering', '.goLinkHovering'];
 	hoveringTargets.forEach(function(hoveringTarget) {
-		new HoverHandler(hoveringTarget, '#cursor');
+		new HoverHandler(hoveringTarget, '#cursorTarget');
 	});
 
 	var mainHeight = $("#bodycontainer").innerHeight();
@@ -48,9 +55,9 @@ function main() {
 				toggleActions: 'play resume resume reset',
 			},
 			y: 40,
-			opacity: .2,
-			ease: 'expo.out',
-			duration: .6,
+			opacity: 0,
+			ease: 'Power1.out',
+			duration: .5,
 		})
 	})
 }

@@ -1,5 +1,5 @@
 const lenis = new Lenis({
-	duration: 2.2,
+	duration: 1.5,
 	easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
 	direction: "vertical",
 	gestureDirection: "vertical",

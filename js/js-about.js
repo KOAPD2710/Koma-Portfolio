@@ -6,10 +6,9 @@ function reSize() {
 
 	function adjuct() {
 
-		$('.section1 .square2 .thumbnail').css('height', ' ' + height-naviHeight-37*2 + 'px');
-		$('.section5 .marquee').css('height', ' ' + .95*height - $('.section5 .text1').innerHeight() - $('.section5 .text2').innerHeight() + 'px');
+		$('.section1 .square2 .thumbnail').css('height', ' ' + height-naviHeight - 67 - 37 * 2 + 'px');
 
-		if (width/2 < (height-naviHeight-37*2)) {
+		if (width/2 < (height-naviHeight - 67 - 37 * 2)) {
 			$('.section1 .container .square2 .thumbnail img').css('height', '100%');
 			$('.section1 .container .square2 .thumbnail img').css('width', 'auto');
 		} else {
@@ -36,6 +35,47 @@ function about() {
 	// expertField.forEach(function(targetSelector) {
 	// 	new MarqueeAnimation(targetSelector, 180);
 	// });
+
+	const s3Urls = ['./imgs/svg/Smile2.svg', './imgs/svg/Asset 4.svg', './imgs/svg/Asset 5.svg', './imgs/svg/Asset 6.svg', './imgs/svg/Asset 7.svg', './imgs/svg/Asset 8.svg', './imgs/svg/Asset 9.svg', './imgs/svg/Asset 10.svg', './imgs/svg/Asset 11.svg', './imgs/svg/Asset 12.svg', './imgs/svg/Asset 13.svg', './imgs/svg/Asset 14.svg', './imgs/svg/Asset 15.svg', './imgs/svg/Asset 16.svg', './imgs/svg/Asset 17.svg', './imgs/svg/Asset 18.svg', './imgs/svg/Asset 19.svg', './imgs/svg/Asset 20.svg', './imgs/svg/Asset 21.svg', './imgs/svg/Asset 22.svg', './imgs/svg/Asset 23.svg', './imgs/svg/Asset 24.svg', './imgs/svg/Asset 25.svg', './imgs/svg/Asset 26.svg', './imgs/svg/Asset 27.svg', './imgs/svg/Asset 28.svg', './imgs/svg/Asset 29.svg', './imgs/svg/Asset 30.svg'];
+	const animation = new BalloonAnimation('.section3 #flyingBalloons', 40, 7, 10, s3Urls);
+
+	const s3Smile = new FloatingAnimation('.section3 .left .smile img', 50, 50, 15, 5);
+
+	ScrollTrigger.create({
+		trigger: '.section6',
+		start: "top top",
+		pin: true, 
+		pinSpacing: false,
+	});
+
+	gsap.fromTo('.section6 .character img',{
+		yPercent: 5
+	}, {
+		scrollTrigger: {
+			trigger: ".section6",
+			start: "bottom bottom",
+			end: "bottom top",
+			scrub: 1,
+		},
+		yPercent: -20,
+		ease: "none",
+	});
+
+	const fixFloatAnimationLogo = (15, 7, 8, 3);
+	const floatkLogo = new FloatingAnimation('.section6 .logo-container .kLogo', fixFloatAnimationLogo);
+	const floatoLogo = new FloatingAnimation('.section6 .logo-container .oLogo', fixFloatAnimationLogo);
+	const floatmLogo = new FloatingAnimation('.section6 .logo-container .mLogo', fixFloatAnimationLogo);
+	const floataLogo = new FloatingAnimation('.section6 .logo-container .aLogo', fixFloatAnimationLogo);
+	gsap.to('.section6 .logo-container', {
+		scrollTrigger: {
+			trigger: ".section6",
+			start: "bottom bottom",
+			end: "bottom top",
+			scrub: 1,
+		},
+		y: -40,
+		ease: "none"
+	})
 }
 
 class MarqueeAnimation {
@@ -78,6 +118,197 @@ class MarqueeAnimation {
 		this.targetHover.on('mouseleave', () => {
 			gsap.to(this.timeline, this.timeOut);
 			this.container.removeClass('hovering');
+		});
+	}
+}
+
+class BalloonAnimation {
+	constructor(target, max, duration, delay, urlImage) {
+		this.target = $(target)[0];
+		this.imageUrls = urlImage || null;
+		this.balloons = [];
+
+		this.maxVal = max || 10;
+		this.delayVal = delay || 5;
+		this.durationVal = duration || 10;
+		this.minDur = this.durationVal * 0.5;
+		this.maxDur = this.durationVal * 1.5;
+		this.targetWidth = this.target.clientWidth;
+		this.targetHeight = this.target.clientHeight;
+		this.currentBalloonIndex = 0;
+
+		this.createBalloonDelay();
+	}
+
+	createBalloonDelay() {
+		if (this.currentBalloonIndex < this.maxVal) {
+			var delayRandom = Math.random() * this.delayVal;
+			setTimeout(() => {
+				this.createBalloon();
+				this.currentBalloonIndex++;
+				this.createBalloonDelay();
+				// console.log(this.currentBalloonIndex, this.maxVal, delayRandom);
+			}, delayRandom);
+		}
+	}
+
+	createBalloon() {
+		const balloon = document.createElement("div");
+		balloon.className = "targetObject";
+
+		const img = document.createElement("img");
+
+		if (this.imageUrls !== null) {
+			const randomImageUrl = this.imageUrls[Math.floor(Math.random() * this.imageUrls.length)];
+			img.src = randomImageUrl;
+			balloon.appendChild(img);
+		}
+
+		this.target.appendChild(balloon);
+		this.animateBalloon(balloon, img);
+		this.balloons.push(balloon);
+	}
+
+	animateBalloon(balloon, img) {
+		const duration = Math.random() * this.durationVal + this.minDur;
+		const x = Math.random() * this.targetWidth;
+
+		gsap.set(balloon, {
+			y: this.targetHeight + 200,
+			// y: 600,
+			x: x
+		});
+
+		const onCompleteCallback = () => {
+			balloon.remove();
+			this.createBalloon();
+		};
+
+		gsap.to(balloon, {
+			y: -200,
+			duration: duration,
+			ease: "power2.inOut",
+			onStart: () => {
+				this.floatingAnimation(img);
+			},
+			onComplete: onCompleteCallback
+		});
+	}
+
+	floatingAnimation(img) {
+		const randomX = random(5, 50);
+		const randomY = random(5, 30);
+		const randomDelay = random(0, 1);
+		const randomMoveTime = random(3, 5);
+		const randomRotateTime = random(5, 10);
+		const randomAngle = random(10, 90);
+
+		gsap.set(img, {
+			x: randomX(Math.random() < 0.5 ? 1 : -1),
+			y: randomY(Math.random() < 0.5 ? 1 : -1),
+			rotation: randomAngle(Math.random() < 0.5 ? 1 : -1),
+			transformOrigin: "center center",
+		}, 0);
+
+		moveX(img, Math.random() < 0.5 ? 1 : -1);
+		moveY(img, Math.random() < 0.5 ? 1 : -1);
+		rotate(img, Math.random() < 0.5 ? 1 : -1);
+
+		function rotate(target, direction) {
+			return gsap.to(target, {
+				duration: randomRotateTime(),
+				rotation: randomAngle(direction),
+				ease: 'Sine.easeInOut',
+				onComplete: rotate.bind(this),
+				onCompleteParams: [target, direction * -1]
+			});
+		}
+
+		function moveX(target, direction) {
+			return gsap.to(target, {
+				duration: randomMoveTime(),
+				x: () => randomX(direction),
+				ease: 'Sine.easeInOut',
+				onComplete: moveX.bind(this),
+				onCompleteParams: [target, direction * -1]
+			});
+		}
+
+		function moveY(target, direction) {
+			return gsap.to(target, {
+				duration: randomMoveTime(),
+				y: () => randomY(direction),
+				ease: 'Sine.easeInOut',
+				onComplete: moveY.bind(this),
+				onCompleteParams: [target, direction * -1]
+			});
+		}
+
+		function random(min, max) {
+			const delta = max - min;
+			return (direction = 1) => (min + delta * Math.random()) * direction;
+		}
+	}
+}
+
+class FloatingAnimation {
+	constructor(target, x, y, angle, duration) {
+		this.target = $(target);
+		this.x = x || 50;
+		this.y = y || 50;
+		this.angle = angle || 15;
+		this.duration = duration || 10;
+
+		this.randomX = this.random(this.x * 0.1, this.x);
+		this.randomY = this.random(this.y * 0.1, this.y);
+		this.randomAngle = this.random(this.angle * 0.1, this.angle);
+		this.randomMoveTime = this.random(this.duration * 0.5, this.duration);
+		this.randomRotateTime = this.random(this.duration, this.duration * 2);
+
+		gsap.set(this.target, {
+			x: this.randomX(Math.random() < 0.5 ? 1 : -1),
+			y: this.randomY(Math.random() < 0.5 ? 1 : -1),
+			rotation: this.randomAngle(Math.random() < 0.5 ? 1 : -1),
+			transformOrigin: "center center",
+		}, 0);
+
+		this.moveX(this.target, Math.random() < 0.5 ? 1 : -1);
+		this.moveY(this.target, Math.random() < 0.5 ? 1 : -1);
+		this.rotate(this.target, Math.random() < 0.5 ? 1 : -1);
+	}
+
+	random(min, max) {
+		const delta = max - min;
+		return (direction = 1) => (min + delta * Math.random()) * direction;
+	}
+
+	moveX(selector, direction) {
+		gsap.to(selector, {
+			duration: this.randomMoveTime(),
+			x: this.randomX(direction),
+			ease: 'Sine.inOut',
+			onComplete: this.moveX.bind(this),
+			onCompleteParams: [selector, direction * -1],
+		});
+	}
+
+	moveY(selector, direction) {
+		gsap.to(selector, {
+			duration:this.randomMoveTime(),
+			y: this.randomY(direction),
+			ease: 'Sine.inOut',
+			onComplete: this.moveY.bind(this),
+			onCompleteParams: [selector, direction * -1],
+		});
+	}
+
+	rotate(selector, direction) {
+		gsap.to(selector, {
+			duration: this.randomRotateTime(),
+			rotation: this.randomAngle(direction),
+			ease: 'Sine.inOut',
+			onComplete: this.rotate.bind(this),
+			onCompleteParams: [selector, direction * -1],
 		});
 	}
 }
