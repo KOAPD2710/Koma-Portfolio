@@ -42,17 +42,25 @@ function about() {
 	const s3Smile = new FloatingAnimation('.section3 .left .smile img', 50, 50, 15, 5);
 
 	ScrollTrigger.create({
-		trigger: '.section6',
+		trigger: '.section5',
+		start: "top 71px",
+		pin: true, 
+		pinSpacing: false,
+	});
+
+	ScrollTrigger.create({
+		trigger: '.section7',
 		start: "top top",
 		pin: true, 
 		pinSpacing: false,
 	});
 
-	gsap.fromTo('.section6 .character img',{
+
+	gsap.fromTo('.section7 .character img',{
 		yPercent: 5
 	}, {
 		scrollTrigger: {
-			trigger: ".section6",
+			trigger: ".section7",
 			start: "bottom bottom",
 			end: "bottom top",
 			scrub: 1,
@@ -62,13 +70,13 @@ function about() {
 	});
 
 	const fixFloatAnimationLogo = (15, 7, 8, 3);
-	const floatkLogo = new FloatingAnimation('.section6 .logo-container .kLogo', fixFloatAnimationLogo);
-	const floatoLogo = new FloatingAnimation('.section6 .logo-container .oLogo', fixFloatAnimationLogo);
-	const floatmLogo = new FloatingAnimation('.section6 .logo-container .mLogo', fixFloatAnimationLogo);
-	const floataLogo = new FloatingAnimation('.section6 .logo-container .aLogo', fixFloatAnimationLogo);
-	gsap.to('.section6 .logo-container', {
+	const floatkLogo = new FloatingAnimation('.section7 .logo-container .kLogo', fixFloatAnimationLogo);
+	const floatoLogo = new FloatingAnimation('.section7 .logo-container .oLogo', fixFloatAnimationLogo);
+	const floatmLogo = new FloatingAnimation('.section7 .logo-container .mLogo', fixFloatAnimationLogo);
+	const floataLogo = new FloatingAnimation('.section7 .logo-container .aLogo', fixFloatAnimationLogo);
+	gsap.to('.section7 .logo-container', {
 		scrollTrigger: {
-			trigger: ".section6",
+			trigger: ".section7",
 			start: "bottom bottom",
 			end: "bottom top",
 			scrub: 1,

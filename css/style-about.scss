@@ -128,7 +128,6 @@
 	width: 100%;
 	height: 50vh;
 	border-top: var(--stroke) solid var(--strokeColor);
-	border-bottom: var(--stroke) solid var(--strokeColor);
 
 	.left {
 		position: relative;
@@ -150,12 +149,15 @@
 		}
 	}
 }
-
 .section6 {
+	border-top: var(--stroke) solid var(--strokeColor);
+}
+.section7 {
 	position: relative;
 	width: 100%;
 	height: 100vh;
 	overflow: hidden;
+	background-color: var(--fillColor);
 
 	.logo-container {
 		position: relative;
