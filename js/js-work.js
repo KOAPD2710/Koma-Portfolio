@@ -1,8 +1,9 @@
-// import { width } from './js/js-module.js';
-
 width = $(window).innerWidth();
 height = $(window).innerHeight();
 naviHeight = $('#navigation').innerHeight();
+
+
+gsap.defaults({ease: "power2.inOut", duration: 1,})
 
 document.body.addEventListener('resize', function() {
 	width = $(window).innerWidth();
@@ -13,14 +14,13 @@ document.body.addEventListener('resize', function() {
 function work() {
 	$('.naviHeight').css('height', ' ' + naviHeight + 'px');
 
-	// ScrollTrigger.create({
-	// 	trigger: '.section1',
-	// 	start: "top 72px",
-	// 	pin: true, 
-	// 	pinSpacing: false,
-	// });
-
 	let panels = gsap.utils.toArray(".section2 .panel");
+
+	gsap.from('.heroSection .marquee-format', {
+		yPercent: -50,
+		delay: .6,
+		duration: .8
+	})
 	
 	panels.forEach((target) => {
 		ScrollTrigger.create({
@@ -73,7 +73,7 @@ class MarqueeThumbnailText {
 				trigger: this.selector,
 				start: "top 85%",
 				end: "bottom 60%",
-				scrub: true,
+				scrub: 1,
 			},
 			y: 250,
 			scale: 2,
@@ -88,7 +88,7 @@ class MarqueeThumbnailText {
 				trigger: this.selector,
 				start: "top bottom",
 				end: "bottom top",
-				scrub: true,
+				scrub: 1,
 			},
 			ease: 'none',
 			yPercent: -20,
@@ -102,7 +102,7 @@ class MarqueeThumbnailText {
 				trigger: this.selector,
 				start: "top 90%",
 				end: "100% top",
-				scrub: true,
+				scrub: 1,
 			},
 			yPercent: -10,
 		})
@@ -115,7 +115,8 @@ class MarqueeThumbnailText {
 				end: "bottom top",
 				scrub: true,
 			},
-			y: 80
+			y: 80,
+			ease: 'Power1.in'
 		})
 	}
 }

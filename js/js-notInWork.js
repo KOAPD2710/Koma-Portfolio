@@ -212,6 +212,6 @@ function notSafeForWork() {
 		ease: 'none'
 	})
 }
-$(document).ready(function(e) {
+window.addEventListener('load', function() {
 	notSafeForWork();
 })

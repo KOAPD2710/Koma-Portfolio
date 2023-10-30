@@ -5,7 +5,7 @@ function main() {
 	const jellyBlob 	= new JellyBlobCursor("#cursorTarget", "#cursorTarget .text");
 	const hoverHandler 	= new HoverHandler('.visHovering', '.thumbHovering', '#cursorTarget');
 
-	const naviHeight = $(".naviSticky").innerHeight();
+	const naviHeight = gsap.getProperty('.naviSticky', 'height');
 	document.documentElement.style.setProperty("--naviHeight", ' ' +naviHeight+ 'px');
 
 	gsap.to('#cursorTarget .goLink .circleprj-container', {
@@ -20,23 +20,18 @@ function main() {
 		new MarqueeCloner(marquee, 10);
 		new Marquee(marquee, 250);
 	})
-	// let marqueeSmallText = gsap.utils.toArray(".marqueeSmallText");
-	// marqueeSmallText.forEach((marquee, i) => {
-	// 	new MarqueeSmall(marquee, 150);
-	// })
-
 
 	let marqueeLogo = gsap.utils.toArray(".marquee-logo");
 	marqueeLogo.forEach((marqueeLogo, i) => {
 		new MarqueeLogo(marqueeLogo, 1)
 	})
 
-	var hoveringTargets = ['.visHovering', '.thumbHovering', '.naviHovering', '.wwmHovering', '.goLinkHovering'];
+	var hoveringTargets = ['.visHovering', '.thumbHovering', '.naviHovering', '.wwmHovering', '.goLinkHovering', '.workLink'];
 	hoveringTargets.forEach(function(hoveringTarget) {
 		new HoverHandler(hoveringTarget, '#cursorTarget');
 	});
 
-	var mainHeight = $("#bodycontainer").innerHeight();
+	var mainHeight = gsap.getProperty('#bodycontainer', 'height');
 	$("#navigation").css('height', ' ' + mainHeight + 'px');
 
 	$('.workWithMe').hover(function() {

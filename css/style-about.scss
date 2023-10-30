@@ -2,6 +2,7 @@
 	position: relative;
 	display: block;
 	width: 100%;
+	height: 100vh;
 }
 .section1 {
 	position: relative;
@@ -13,6 +14,7 @@
 		position: relative;
 		display: block;
 		width: 100%;
+		height: var(--naviHeight);
 		// background-color: royalblue;
 	}
 
@@ -55,6 +57,7 @@
 				position: relative;
 				display: block;
 				width: 100%;
+				height: fill;
 				overflow: hidden;
 
 				img, video {
@@ -159,67 +162,77 @@
 	overflow: hidden;
 	background-color: var(--fillColor);
 
-	.logo-container {
+
+	.container {
 		position: relative;
 		width: 100%;
-		height: 100%;
-		overflow: hidden;
+		height: 100vh;
 
-		svg {
-			position: absolute;
-			width: 10%;
-			max-width: 250px;
-			min-width: 150px;
-			aspect-ratio: 1;
-
-			--top1: 35%;
-			--left1: 15%;
-			--top2: 20%;
-			--left2: 33%;
-		}
-
-		.kLogo {
-			top: var(--top1);
-			left: var(--left1);
-			fill: var(--red) !important;
-		}
-		.oLogo {
-			top: var(--top2);
-			left: var(--left2);
-			fill: var(--text);
-		}
-		.mLogo {
-			top: var(--top2);
-			left: auto;
-			right: var(--left2);
-			fill: var(--green) !important;
-		}
-		.aLogo {
-			top: var(--top1);
-			left: auto;
-			right: var(--left1);
-			fill: var(--blue) !important;
-		}
-	}
-
-	.character {
-		position: absolute;
-		left: 50%;
-		bottom: 0;
-		translate: -50% 0;
-		height: 80vh;
-
-		img {
+		.logo-container {
+			position: relative;
+			width: 100%;
 			height: 100%;
-			filter: drop-shadow(-2px -2px 0px var(--text))
-					drop-shadow(0px -2px 0px var(--text))
-					drop-shadow(2px -2px 0px var(--text))
-					drop-shadow(-2px 0px 0px var(--text))
-					drop-shadow(2px 0px 0px var(--text))
-					drop-shadow(-2px 2px 0px var(--text))
-					drop-shadow(0px 2px 0px var(--text))
-					drop-shadow(2px 2px 0px var(--text));
+			overflow: hidden;
 
+			.logo {
+				position: absolute;
+				width: 10%;
+				max-width: 250px;
+				min-width: 150px;
+				aspect-ratio: 1;
+
+				--top1: 35%;
+				--left1: 15%;
+				--top2: 20%;
+				--left2: 33%;
+
+				svg {
+					width: 100%;
+				}
+				&.logoK {
+					top: var(--top1);
+					left: var(--left1);
+					fill: var(--red) !important;
+				}
+				&.logoO {
+					top: var(--top2);
+					left: var(--left2);
+					fill: var(--text);
+				}
+				&.logoM {
+					top: var(--top2);
+					left: auto;
+					right: var(--left2);
+					fill: var(--green) !important;
+				}
+				&.logoA {
+					top: var(--top1);
+					left: auto;
+					right: var(--left1);
+					fill: var(--blue) !important;
+				}
+			}
+		}
+
+		.character {
+			position: absolute;
+			left: 50%;
+			bottom: 0;
+			translate: -50% 0;
+			height: 80vh;
+
+			img {
+				height: 100%;
+				filter: drop-shadow(-2px -2px 0px var(--text))
+						drop-shadow(0px -2px 0px var(--text))
+						drop-shadow(2px -2px 0px var(--text))
+						drop-shadow(-2px 0px 0px var(--text))
+						drop-shadow(2px 0px 0px var(--text))
+						drop-shadow(-2px 2px 0px var(--text))
+						drop-shadow(0px 2px 0px var(--text))
+						drop-shadow(2px 2px 0px var(--text));
+
+			}
 		}
 	}
 }

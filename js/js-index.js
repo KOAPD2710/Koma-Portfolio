@@ -45,6 +45,13 @@ function index() {
 		scale: 1.1,
 		ease: indexEase
 	},0.3);
+	gsap.from('.heroSection svg', {
+		y: 200,
+		opacity: 0,
+		duration: 1.2,
+		ease: "power3.out",
+		delay: 7.4,
+	})
 
 	ScrollTrigger.create({
 		trigger: '.section4 .stickyContainer',

@@ -1,40 +1,18 @@
 width = $(window).innerWidth();
 height = $(window).innerHeight();
-naviHeight = $('#navigation').innerHeight();
-
-function reSize() {
-
-	function adjuct() {
-
-		$('.section1 .square2 .thumbnail').css('height', ' ' + height-naviHeight - 67 - 37 * 2 + 'px');
-
-		if (width/2 < (height-naviHeight - 67 - 37 * 2)) {
-			$('.section1 .container .square2 .thumbnail img').css('height', '100%');
-			$('.section1 .container .square2 .thumbnail img').css('width', 'auto');
-		} else {
-			$('.section1 .container .square2 .thumbnail img').css('height', 'auto');
-			$('.section1 .container .square2 .thumbnail img').css('width', '100%');
-		}
-	}
-
-	window.addEventListener('resize', function() {
-		width = $(window).innerWidth();
-		height = $(window).innerHeight();
-
-		adjuct();	
-	})
-	adjuct();
-}
 
 function about() {
-	reSize();
 
-	$('.naviHeight').css('height', ' ' + naviHeight + 'px');
+	$('.section1').css('height', ' '+ height - 67 +'px');
+	$('.section1 .container').css('height', ' '+ height - 67 - 72 +'px');
 
-	// var expertField = ['.uiExpert', '.visualExpert', '.mediaExpert', '.contentExpert'];
-	// expertField.forEach(function(targetSelector) {
-	// 	new MarqueeAnimation(targetSelector, 180);
-	// });
+	if (width/2 < (height - 72 - 67 - 37 * 2)) {
+		$('.section1 .container .square2 .thumbnail img').css('height', '100%');
+		$('.section1 .container .square2 .thumbnail img').css('width', 'auto');
+	} else {
+		$('.section1 .container .square2 .thumbnail img').css('height', 'auto');
+		$('.section1 .container .square2 .thumbnail img').css('width', '100%');
+	}
 
 	const s3Urls = ['./imgs/svg/Smile2.svg', './imgs/svg/bl1.svg', './imgs/svg/bl2.svg', './imgs/svg/bl3.svg', './imgs/svg/bl4.svg', './imgs/svg/bl5.svg', './imgs/svg/bl6.svg', './imgs/svg/bl7.svg', './imgs/svg/bl8.svg', './imgs/svg/bl9.svg', './imgs/svg/bl20.svg', './imgs/svg/bl21.svg', './imgs/svg/bl22.svg', './imgs/svg/bl23.svg', './imgs/svg/bl24.svg', './imgs/svg/bl25.svg', './imgs/svg/bl26.svg', './imgs/svg/bl27.svg', './imgs/svg/bl28.svg', './imgs/svg/bl29.svg', './imgs/svg/bl30.svg'];
 	const animation = new BalloonAnimation('.section3 #flyingBalloons', 40, 7, 10, s3Urls);
@@ -49,40 +27,46 @@ function about() {
 	});
 
 	ScrollTrigger.create({
-		trigger: '.section7',
+		trigger: '.section7 .container',
 		start: "top top",
+		endTrigger: '.section7',
+		end: "bottom top",
 		pin: true, 
 		pinSpacing: false,
 	});
 
-
 	gsap.fromTo('.section7 .character img',{
+		yPercent: 5,
+	}, {
+		scrollTrigger: {
+			trigger: ".section7 .container",
+			start: "top bottom",
+			endTrigger: '.section7',
+			end: "bottom top",
+			scrub: true,
+		},
+		yPercent: -55,
+		ease: "power3.in",
+	});
+	gsap.fromTo('.section7 .logo-container',{
 		yPercent: 5
 	}, {
 		scrollTrigger: {
-			trigger: ".section7",
-			start: "bottom bottom",
+			trigger: ".section7 .container",
+			start: "top bottom",
+			endTrigger: '.section7',
 			end: "bottom top",
 			scrub: 1,
 		},
-		yPercent: -20,
+		yPercent: -10,
 		ease: "none",
 	});
 
-	const fixFloatAnimationLogo = (15, 7, 8, 3);
-	const floatkLogo = new FloatingAnimation('.section7 .logo-container .kLogo', fixFloatAnimationLogo);
-	const floatoLogo = new FloatingAnimation('.section7 .logo-container .oLogo', fixFloatAnimationLogo);
-	const floatmLogo = new FloatingAnimation('.section7 .logo-container .mLogo', fixFloatAnimationLogo);
-	const floataLogo = new FloatingAnimation('.section7 .logo-container .aLogo', fixFloatAnimationLogo);
-	gsap.to('.section7 .logo-container', {
-		scrollTrigger: {
-			trigger: ".section7",
-			start: "bottom bottom",
-			end: "bottom top",
-			scrub: 1,
-		},
-		y: -40,
-		ease: "none"
+	const fixFloatAnimationLogo = (20, 10, 10, 10);
+
+	const s7SVG = gsap.utils.toArray('.section7 .logo-container svg');
+	s7SVG.forEach(target => {
+		new FloatingAnimation(target, fixFloatAnimationLogo);
 	})
 }
 
@@ -287,7 +271,7 @@ class FloatingAnimation {
 
 	random(min, max) {
 		const delta = max - min;
-		return (direction = 1) => (min + delta * Math.random()) * direction;
+		return (direction = 1) => (max - delta * Math.random()) * direction;
 	}
 
 	moveX(selector, direction) {
@@ -321,8 +305,6 @@ class FloatingAnimation {
 	}
 }
 
-
-window.addEventListener('load', function() {
+$(document).ready(function(e) {
 	about();
-
 })
