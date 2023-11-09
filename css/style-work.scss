@@ -203,7 +203,8 @@
 						border-radius: 10000px;
 						overflow: hidden;
 						z-index: 2;
-						border: var(--stroke) solid var(--strokeColor);
+						// border: var(--stroke) solid var(--strokeColor);
+						// filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .2));
 
 						img, video {
 							position: absolute;
