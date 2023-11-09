@@ -144,7 +144,7 @@ var thickness = 1000,
 	SVGsize = 200,
 	size = 100;
 
-const 	svgScale = Math.min(Math.max(((canvasSize.width*1.2/5)/SVGsize), .7), 1.4);
+const 	svgScale = Math.min(Math.max(((canvasSize.width/6)/SVGsize), .7), 1.4);
 		svgRatio = 1,
 		trueWidth = svgScale*SVGsize,
 		svgGap = .1*trueWidth;
